@@ -5,6 +5,10 @@ A frontend for the ***Pocket-Post*** project, which is a ***dynamic blog web app
 It's created using Reactjs ( **Nextjs** ), and contains pages which are statically built with client side fetching of data, also server-side rendered pages.
 
 # TODO LIST
+- Modify Home page style and structure.
+- Install styled-components npm package ofr styling.
+- Reposition side bar widget.
+- Install and try [editor](https://editorjs.io/).
 
 ## static pages
 - `index.js` *with (CSR)* as no need for seo for post cards, other components they are static already so no problem with seo

@@ -2,7 +2,7 @@ import Head from "next/head";
 import PostCard from "../components/PostCard";
 // import Pagination from "../components/Pagination";
 import { Container, Row, Col } from "react-bootstrap";
-// import SidebarWidgets from "../components/SidebarWidgets";
+import SidebarWidgets from "../components/SidebarWidgets";
 // import { getAllPosts } from "../utils/api";
 
 const Home = (props) => {
@@ -17,15 +17,15 @@ const Home = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Row>
-        <Col /*md={8}*/ md={12}>
+        <Col md={8} md={12}>
           <h1 className="my-4">
             Pocket-Post <small className="text-secondary" style={{fontSize: "1rem"}}>_wherever you go!</small>
           </h1>
           {PostsCards}
           {/* <Pagination /> */}
         </Col>
-        <Col /*md={4}*/>
-          {/* <SidebarWidgets /> */}
+        <Col md={4}>
+          <SidebarWidgets />
         </Col>
       </Row>
     </Container>
