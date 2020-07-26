@@ -1,5 +1,5 @@
 import Head from "next/head";
-// import SidebarWidgets from "../../components/SidebarWidgets";
+import SidebarWidgets from "../../components/SidebarWidgets";
 import PostContent from "../../components/PostContent";
 import { Container, Row, Col } from "react-bootstrap";
 // import { getPostBySlug, getAllPosts } from "../../utils/api";
@@ -15,12 +15,12 @@ const Post = (props) => {
       </Head>
       <Container>
         <Row>
-          <Col /*md={8}*/ md={12}>
+          <Col md={12} lg={8}>
             <PostContent post={props.post}/>
           </Col>
 
-          <Col /*md={4}*/>
-            {/* <SidebarWidgets authorImage={props.post.author.picture}/> */}
+          <Col md={12} lg={4}>
+            <SidebarWidgets authorImage={props.post.author.picture}/>
           </Col>
         </Row>
       </Container>
@@ -40,14 +40,29 @@ export const getStaticProps = async ({ params }) => {
   // ]);
   const post = {
     title: "Hello world",
-    date: "yyyy-mm-dd",
+    date: "2020-05-03",
     slug: "welcome",
-    author: params.slug,
-    coverImage: "",
+    author: /*params.slug*/{name: "Jhon Deo", picture: "/blog/authors/jj.jpeg"},
+    coverImage: "/blog/hello-world/cover.jpg",
     excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda",
     contnt : "<h1>Hello</h1>"
   }
-  const content = "<h1>Hello</h1>"
+
+  const content = `
+  <h1>Hello</h1>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!</p>
+  `
   // const content = await markdownToHtml(post.content || "");
 
   return {
