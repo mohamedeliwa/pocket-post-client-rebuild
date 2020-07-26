@@ -58,28 +58,28 @@ function getAllPosts(){
   return [
     {
       title: "Hello world",
-      date: "19yy-mm-dd",
+      date: "2020-05-03",
       slug: "hello",
-      author: "random",
-      coverImage: "",
+      author: /*params.slug*/{name: "Jhon Deo", picture: "/blog/authors/jj.jpeg"},
+      coverImage: "/blog/hello-world/cover.jpg",
       excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda"
 
     },
     {
       title: "Hello world",
-      date: "19yy-mm-dd",
+      date: "2020-05-03",
       slug: "random",
-      author: "random",
-      coverImage: "",
+      author: /*params.slug*/{name: "Jhon Deo", picture: "/blog/authors/jj.jpeg"},
+      coverImage: "/blog/hello-world/cover.jpg",
       excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda"
 
     },
     {
       title: "Hello world",
-      date: "19yy-mm-dd",
+      date: "2020-05-03",
       slug: "welcome",
-      author: "random",
-      coverImage: "",
+      author: /*params.slug*/{name: "Jhon Deo", picture: "/blog/authors/jj.jpeg"},
+      coverImage: "/blog/hello-world/cover.jpg",
       excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda"
 
     }
