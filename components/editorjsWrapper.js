@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Head from "next/head";
+import {Button} from 'react-bootstrap';
 
 export default class extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ export default class extends Component {
         </Head>
         <div id="editorjs"></div>
 
-        <button onClick={this.handleSaving}>Save</button>
+        <Button variant="primary" onClick={this.handleSaving}  block>Save</Button>
       </div>
     );
   }

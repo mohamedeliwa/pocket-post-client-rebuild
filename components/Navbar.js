@@ -99,7 +99,7 @@ export default () => {
         </Navbar.Brand>
         <StyledNav /*bg="light" className="flex-fill flex-nowrap justify-content-end"*/>
           <Nav.Link as="span">
-            <Link href="/accounts/login">
+            <Link href="/posts/new">
               <div className="text-primary" style={{ cursor: "pointer" }}>
                 New Post
               </div>
