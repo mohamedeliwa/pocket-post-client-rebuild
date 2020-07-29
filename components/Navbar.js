@@ -123,7 +123,7 @@ export default () => {
                 </Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link href="/accounts/login">
+                <Link href="/profile/[id]">
                   <div>
                     Settings
                   </div>
