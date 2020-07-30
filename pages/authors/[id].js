@@ -24,7 +24,7 @@ const StyledUserCard = styled(Container)`
 `;
 
 const Author = (props) => {
-  const [key, setKey] = useState("collections");
+  const [key, setKey] = useState("allPosts");
   const PostsCards = props.allPosts.map((post) => (
     <PostCard postDetails={post} key={post.slug} />
   ));
