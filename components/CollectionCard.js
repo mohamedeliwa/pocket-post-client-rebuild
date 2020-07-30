@@ -35,11 +35,7 @@ const CollectionCard = (props) => {
               report <TiFlag />
             </span>
           </div>
-          {/* <Link href="/posts/[slug]" as={`/posts/hello`}>
-            <div className="text-primary" style={{ cursor: "pointer" }}>
-              Seel All Posts
-            </div>
-          </Link> */}
+          <br />
           <Button onClick={props.fn}>View Collection</Button>
         </div>
       </StyledCollectionCard>
