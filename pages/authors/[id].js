@@ -13,6 +13,8 @@ import {
 } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import styled from "styled-components";
+import Collections from "../../components/Collections";
+
 
 const StyledUserCard = styled(Container)`
   // /background-color: lightyellow;
@@ -22,7 +24,7 @@ const StyledUserCard = styled(Container)`
 `;
 
 const Author = (props) => {
-  const [key, setKey] = useState("allPosts");
+  const [key, setKey] = useState("collections");
   const PostsCards = props.allPosts.map((post) => (
     <PostCard postDetails={post} key={post.slug} />
   ));
@@ -70,9 +72,9 @@ const Author = (props) => {
           <br />
           {PostsCards}
         </Tab>
-        <Tab eventKey="Serieses" title="Series Posts">
+        <Tab eventKey="collections" title="Collections">
           <br />
-          {PostsCards}
+          <Collections />
         </Tab>
       </Tabs>
     </Container>
