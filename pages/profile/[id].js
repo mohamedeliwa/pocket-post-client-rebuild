@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
-import { Container, Tabs, Tab } from "react-bootstrap";
+import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
 
@@ -22,24 +22,28 @@ const Profile = () => {
         <Tab eventKey="profile" title="Public Profile">
           <br />
           <Container>
-            <SettingForm label="First Name" inputType="text" />
-            <SettingForm label="Last Name" inputType="text" />
-            <SettingForm label="Caption" inputType="text" />
             <Container style={{ padding: "1rem" }}>
               <form>
-                <div class="form-group">
-                  <label for="avatar">Profile Picture</label>
+                <div className="form-group">
+                  <label htmlFor="avatar">
+                    <Image src="/blog/authors/jj.jpeg" rounded />
+                  </label>
                   <input
                     type="file"
-                    class="form-control-file"
+                    className="form-control-file"
                     id="avatar"
                     name="avatar"
                     accept="image/png, image/jpeg"
                   />
                 </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
+                <button type="submit" className="btn btn-primary">
+                  Upload
+                </button>
               </form>
             </Container>
+            <SettingForm label="First Name" inputType="text" />
+            <SettingForm label="Last Name" inputType="text" />
+            <SettingForm label="Caption" inputType="text" />
           </Container>
         </Tab>
         <Tab eventKey="account" title="Account">
