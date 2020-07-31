@@ -59,7 +59,7 @@ const signup = () => {
         <Form.Group controlId="formBasicEmail">
           <Form.Control type="email" placeholder="Email" />
           <Form.Text className="text-muted">
-            never shared your email with anyone else.
+            We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
 

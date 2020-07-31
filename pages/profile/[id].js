@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
-import { Container, Tabs, Tab } from "react-bootstrap";
+import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
 
 const Profile = () => {
-  const [key, setKey] = useState("account");
+  const [key, setKey] = useState("profile");
 
   return (
     <Container>
@@ -19,20 +19,38 @@ const Profile = () => {
         activeKey={key}
         onSelect={(k) => setKey(k)}
       >
+        <Tab eventKey="profile" title="Public Profile">
+          <br />
+          <Container>
+            <Container style={{ padding: "1rem" }}>
+              <form>
+                <div className="form-group">
+                  <label htmlFor="avatar">
+                    <Image src="/blog/authors/jj.jpeg" rounded />
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control-file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/png, image/jpeg"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Upload
+                </button>
+              </form>
+            </Container>
+            <SettingForm label="First Name" inputType="text" />
+            <SettingForm label="Last Name" inputType="text" />
+            <SettingForm label="Caption" inputType="text" />
+          </Container>
+        </Tab>
         <Tab eventKey="account" title="Account">
           <br />
           <Container>
             <SettingForm label="Email Address" inputType="email" />
             <SettingForm label="Password" inputType="password" />
-            <SettingForm label="User Name" inputType="text" />
-          </Container>
-        </Tab>
-        <Tab eventKey="profile" title="Profile">
-          <br />
-          <Container>
-            <SettingForm label="Email Address" inputType="email" />
-            <SettingForm label="Password" inputType="password" />
-            <SettingForm label="User Name" inputType="text" />
           </Container>
         </Tab>
       </Tabs>
