@@ -1,6 +1,4 @@
-import Link from "next/link";
 import {useState} from 'react';
-import {  Breadcrumb } from "react-bootstrap";
 import CollectionCard from "./CollectionCard";
 import CollectionContent from "./CollectionContent";
 
@@ -11,7 +9,7 @@ const Collections = () => {
         state === "list" ? setState("one") : setState("list");
     }
     
-  return state !== "list" ?  (
+  return state === "list" ?  (
     <div>
         <CollectionCard fn={handleChange}/>
         <CollectionCard  fn={handleChange}/>
