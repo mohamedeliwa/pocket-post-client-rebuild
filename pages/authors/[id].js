@@ -1,27 +1,9 @@
 import Head from "next/head";
 import { useState } from "react";
+import UserCard from "../../components/UserCard";
 import PostCard from "../../components/PostCard";
-import {
-  Container,
-  Jumbotron,
-  Image,
-  Row,
-  Col,
-  Badge,
-  Tabs,
-  Tab,
-} from "react-bootstrap";
-import { TiFlag } from "react-icons/ti";
-import styled from "styled-components";
+import { Container, Tabs, Tab } from "react-bootstrap";
 import Collections from "../../components/Collections";
-
-
-const StyledUserCard = styled(Container)`
-  // /background-color: lightyellow;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap-reverse;
-`;
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -35,33 +17,7 @@ const Author = (props) => {
         <title>Pocket-Post</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Jumbotron fluid className="bg-white">
-        <StyledUserCard>
-          <div className="user-info">
-            <h1>Jhon Deo</h1>
-            <p>
-              Love to write and code, yet need to learn more. Feedback always
-              welcome.
-            </p>
-            <div>
-              <span style={{ margin: "0px 4px" }}>
-                <Badge variant="light">250</Badge>Posts
-              </span>
-              <span style={{ margin: "0px 4px" }}>
-                <Badge variant="light">250</Badge>likes
-              </span>
-              <span style={{ margin: "0px 0px 0px 15px", cursor: "pointer" }}>
-                report <TiFlag />
-              </span>
-            </div>
-          </div>
-
-          <div className="user-img">
-            <Image src="/blog/authors/jj.jpeg" rounded />
-          </div>
-        </StyledUserCard>
-      </Jumbotron>
+      <UserCard />
 
       <Tabs
         id="controlled-tab-example"

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Container,
   Jumbotron,
@@ -14,7 +15,20 @@ const StyledUserCard = styled(Container)`
   flex-wrap: wrap-reverse;
 `;
 
+const Report = styled.span`
+   margin: 0px 0px 0px 15px;
+   cursor: pointer;
+  color: ${(props) => (props.reported === "true" ? "#AB293B" : "#212529")};
+`;
+
 const UserCard = () => {
+  const [reported, setReported] = useState(false);
+
+  const reporting = (e) => {
+    e.preventDefault();
+    setReported(!reported);
+  };
+
   return (
     <Jumbotron fluid className="bg-white">
       <StyledUserCard>
@@ -31,9 +45,9 @@ const UserCard = () => {
             <span style={{ margin: "0px 4px" }}>
               <Badge variant="light">250</Badge>likes
             </span>
-            <span style={{ margin: "0px 0px 0px 15px", cursor: "pointer" }}>
-              report <TiFlag />
-            </span>
+            <Report reported={reported ? "true" : "false"} onClick={reporting} >
+              {reported ? "Reported" : "report"} <TiFlag />
+            </Report>
           </div>
         </div>
 
