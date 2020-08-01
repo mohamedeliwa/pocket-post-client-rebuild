@@ -40,10 +40,10 @@ const UserCard = () => {
           </p>
           <div>
             <span style={{ margin: "0px 4px" }}>
-              <Badge variant="light">250</Badge>Posts
+              <Badge className="text-success" variant="light">250</Badge>Posts
             </span>
             <span style={{ margin: "0px 4px" }}>
-              <Badge variant="light">250</Badge>likes
+              <Badge className="text-primary" variant="light">250</Badge>likes
             </span>
             <Report reported={reported ? "true" : "false"} onClick={reporting} >
               {reported ? "Reported" : "report"} <TiFlag />
