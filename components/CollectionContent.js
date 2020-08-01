@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { Container, ListGroup, Button } from "react-bootstrap";
 import {IoMdArrowRoundBack} from "react-icons/io";
+import styled from 'styled-components';
+
+
+const StyledListItem= styled(ListGroup.Item)`
+  cursor: pointer;
+  &:hover {
+    color: #007bff;
+  }
+
+`;
 
 const CollectionContent = (props) => {
   return (
@@ -9,10 +19,10 @@ const CollectionContent = (props) => {
       <br />
       <br />
       <ListGroup variant="flush">
-        <Link href="/posts/[slug]" as='/posts/hello'><ListGroup.Item style={{cursor: "pointer"}} onMouseEnter={(e) => e.target.style.color = "blue"}  onMouseLeave={(e) => e.target.style.color = "black"}>Click me to go to Home</ListGroup.Item></Link>
-        <Link href="/posts/[slug]" as='/posts/hello'><ListGroup.Item style={{cursor: "pointer"}}>go to post reading page</ListGroup.Item></Link>
-        <ListGroup.Item style={{cursor: "pointer"}}>Morbi leo risus</ListGroup.Item>
-        <ListGroup.Item style={{cursor: "pointer"}}>Porta ac consectetur ac</ListGroup.Item>
+        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 1st post in the collection </StyledListItem></Link>
+        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 2nd post in the collection </StyledListItem></Link>
+        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 3rd post in the collection </StyledListItem></Link>
+        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 4th post in the collection </StyledListItem></Link>
         <hr />
       </ListGroup>
     </Container>
