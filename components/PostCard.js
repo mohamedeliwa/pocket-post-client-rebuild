@@ -21,7 +21,7 @@ const PostCard = (props) => {
         </Link>
       </Card.Body>
       <Card.Footer className="text-muted">
-        {date} By_  <span style={{color: "#17a2b8"}}> {author.name}</span>
+        {date} By_  <Link href="/authors/[id]" as='/authors/hello'><span style={{color: "#17a2b8", cursor: "pointer"}}> {author.name}</span></Link>
       </Card.Footer>
     </Card>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Container, Figure, Badge } from "react-bootstrap";
 import {
   MdBookmark,
@@ -103,9 +104,9 @@ const PostContent = ({ post }) => {
           src={post.author.picture}
           rounded
         />
-        <Figure.Caption style={{ color: "#17a2b8" }} className="ml-3 mb-2">
+        <Link href="/authors/[id]" as="/authors/hello" ><Figure.Caption style={{ color: "#17a2b8", cursor: "pointer" }} className="ml-3 mb-2">
           {post.author.name}
-        </Figure.Caption>
+        </Figure.Caption></Link>
       </Figure>
 
       <hr />
