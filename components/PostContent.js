@@ -104,9 +104,14 @@ const PostContent = ({ post }) => {
           src={post.author.picture}
           rounded
         />
-        <Link href="/authors/[id]" as="/authors/hello" ><Figure.Caption style={{ color: "#17a2b8", cursor: "pointer" }} className="ml-3 mb-2">
-          {post.author.name}
-        </Figure.Caption></Link>
+        <Link href="/authors/[id]" as="/authors/hello">
+          <Figure.Caption
+            style={{ color: "#17a2b8", cursor: "pointer" }}
+            className="ml-3 mb-2"
+          >
+            {post.author.name}
+          </Figure.Caption>
+        </Link>
       </Figure>
 
       <hr />
@@ -149,6 +154,28 @@ const PostContent = ({ post }) => {
         className="div-content"
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></div>
+      <div className="badges-div">
+        <br />
+        <hr />
+        <Badge variant="warning">Javascript</Badge>{" "}
+        <Badge variant="info">HTML</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="warning">Javascript</Badge>{" "}
+        <Badge variant="info">HTML</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+        <Badge variant="info">Nodjs</Badge>{" "}
+        <Badge variant="warning">ReactJS</Badge>{" "}
+      </div>
     </Container>
   );
 };
