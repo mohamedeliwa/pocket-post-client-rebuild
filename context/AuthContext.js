@@ -16,10 +16,10 @@ const initialState = {
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
-  const [auth, setAuth] = useState(false);
+  const [state, setState] = useState(initialState);
 
   return (
-    <AuthContext.Provider value={{ auth }}>
+    <AuthContext.Provider value={{ ...state }}>
       {props.children}
     </AuthContext.Provider>
   );
