@@ -7,6 +7,7 @@ export default class extends Component {
     super(props);
     this.editor;
     this.handleSaving = this.handleSaving.bind(this);
+    this.exitEditor = this.exitEditor.bind(this);
   }
   shouldComponentUpdate() {
     return false;
@@ -55,6 +56,10 @@ export default class extends Component {
         console.log("Saving failed: ", error);
       });
   }
+  exitEditor(e){
+    e.preventDefault();
+    this.props.exitEditor("options")
+  }
   render() {
     return (
       <div className="bg-white">
@@ -72,6 +77,7 @@ export default class extends Component {
         <div id="editorjs"></div>
 
         <Button variant="primary" onClick={this.handleSaving}  block>Save</Button>
+        <Button variant="danger" onClick={this.exitEditor}  block>Cancel</Button>
       </div>
     );
   }

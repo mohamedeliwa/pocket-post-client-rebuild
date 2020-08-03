@@ -4,6 +4,7 @@ import { Container, Form, Button } from "react-bootstrap";
 const NewCollectionOptions = () => {
   return (
     <Container>
+      <hr />
       <Form>
         <div className="form-group">
           <label htmlFor="collection-name">Collection Name*</label>

@@ -3,7 +3,7 @@ import { Container, Form } from "react-bootstrap";
 import NewPostOptions from "./NewPostOptions";
 import NewCollectionOptions from "./NewCollectionOptions";
 
-const NewPageOptions = () => {
+const NewPageOptions = (props) => {
   const [view, setView] = useState("");
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -12,7 +12,7 @@ const NewPageOptions = () => {
   };
   return (
     <Container>
-      <h1>New Post Options</h1>
+      <h1>Create</h1>
       <Form>
         <Form.Group controlId="post-collection-radio-form">
           <Form.Check
@@ -35,7 +35,7 @@ const NewPageOptions = () => {
           />
         </Form.Group>
       </Form>
-      {!view ? null : view === "post" ? <NewPostOptions /> : <NewCollectionOptions />}
+      {!view ? null : view === "post" ? <NewPostOptions showEditor={props.showEditor}/> : <NewCollectionOptions />}
     </Container>
   );
 };

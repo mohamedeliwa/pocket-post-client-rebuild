@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
-const NewPostOptions = () => {
+const NewPostOptions = (props) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.showEditor("editor")
+  }
   return (
     <Container>
       <hr />
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="post-title">Post Title*</label>
           <input
