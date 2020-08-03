@@ -8,7 +8,9 @@ const New = () => {
   const [view, setView] = useState("options");
 
   const changeView = (value) => {
-    setView(value);
+    if (value === "options" || value === "editor") {
+      setView(value);
+    }
   };
 
   return (
