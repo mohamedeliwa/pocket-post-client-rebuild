@@ -1,21 +1,30 @@
+import { useState } from "react";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EditorJS from "../../components/editorjsWrapper";
-
-
-
-
+import NewPageOptions from "../../components/NewPageOptions";
 
 const New = () => {
+  const [view, setView] = useState("options");
 
   return (
-    <Container className="p-4 rounded-lg" style={{backgroundColor: "#eef5fa"}}>
+    <Container
+      className="p-4 rounded-lg"
+      style={{ backgroundColor: "#eef5fa" }}
+    >
       <Head>
         <title>Pocket-Posta</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h5 className="text-center">Create new Post</h5>
-      <EditorJS data={x} />
+      {view === "options" ? (
+        <NewPageOptions />
+      ) : (
+        <>
+          <h5 className="text-center">Create new Post</h5>
+
+          <EditorJS data={x} />
+        </>
+      )}
     </Container>
   );
 };
