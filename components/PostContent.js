@@ -10,6 +10,7 @@ import {
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { TiFlag } from "react-icons/ti";
 import styled from "styled-components";
+import Output from "editorjs-react-renderer";
 
 const EmptyHeart = styled(IoMdHeartEmpty)`
   cursor: pointer;
@@ -57,26 +58,26 @@ const PostContent = ({ post }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [reported, setReported] = useState(false);
 
-  useEffect(() => {
-    const ps = document.querySelectorAll(".div-content p");
-    ps.forEach((p) => p.classList.add("lead"));
+  // useEffect(() => {
+  //   const ps = document.querySelectorAll(".div-content p");
+  //   ps.forEach((p) => p.classList.add("lead"));
 
-    const blockquotes = document.querySelectorAll(".div-content blockquote");
-    blockquotes.forEach((blockquote) => blockquote.classList.add("blockquote"));
+  //   const blockquotes = document.querySelectorAll(".div-content blockquote");
+  //   blockquotes.forEach((blockquote) => blockquote.classList.add("blockquote"));
 
-    const blockquotesFooter = document.querySelectorAll(
-      ".div-content blockquote footer"
-    );
-    blockquotesFooter.forEach((blockquoteFooter) =>
-      blockquoteFooter.classList.add("blockquote")
-    );
+  //   const blockquotesFooter = document.querySelectorAll(
+  //     ".div-content blockquote footer"
+  //   );
+  //   blockquotesFooter.forEach((blockquoteFooter) =>
+  //     blockquoteFooter.classList.add("blockquote")
+  //   );
 
-    const uls = document.querySelectorAll(".div-content ul");
-    uls.forEach((ul) => ul.classList.add("list-group"));
+  //   const uls = document.querySelectorAll(".div-content ul");
+  //   uls.forEach((ul) => ul.classList.add("list-group"));
 
-    const ulsLis = document.querySelectorAll(".div-content ul li");
-    ulsLis.forEach((li) => li.classList.add("list-group-item"));
-  });
+  //   const ulsLis = document.querySelectorAll(".div-content ul li");
+  //   ulsLis.forEach((li) => li.classList.add("list-group-item"));
+  // });
 
   const hearting = (e) => {
     e.preventDefault();
@@ -150,10 +151,11 @@ const PostContent = ({ post }) => {
         />
         <Report onClick={reporting} reported={reported ? "true" : "false"} />
       </div>
-      <div
+      <Output data={post.content} />
+      {/* <div
         className="div-content"
         dangerouslySetInnerHTML={{ __html: post.content }}
-      ></div>
+      ></div> */}
       <div className="badges-div">
         <br />
         <hr />
