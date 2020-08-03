@@ -101,7 +101,7 @@ export default () => {
           <Nav.Link as="span">
             <Link href="/posts/new">
               <div className="text-primary" style={{ cursor: "pointer" }}>
-                New Post
+                New
               </div>
             </Link>
           </Nav.Link>
