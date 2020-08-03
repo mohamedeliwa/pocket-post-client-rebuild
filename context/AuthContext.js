@@ -3,7 +3,7 @@ import { createContext, useState/*, useEffect*/ } from "react";
 // import { useRouter } from "next/router";
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   user: {
     id: "",
     name: "",
