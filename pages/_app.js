@@ -1,14 +1,17 @@
 // import App from 'next/app'
 import Navbar from "../components/Navbar";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/Footer";
+import AuthContextProvider from "../context/AuthContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Navbar />
-      <Component {...pageProps} />
-      <Footer />
+      <AuthContextProvider>
+        <Navbar />
+        <Component {...pageProps} />
+        <Footer />
+      </AuthContextProvider>
       <style global jsx>{`
         body {
           min-height: 100vh;
