@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EditorJS from "../../components/editorjsWrapper";
 import NewPageOptions from "../../components/NewPageOptions";
+import WithAuth from "../../components/WithAuth";
 
 const New = () => {
   const [view, setView] = useState("options");
@@ -43,7 +44,7 @@ const New = () => {
   );
 };
 
-export default New;
+export default WithAuth(New);
 
 var x = {
   time: 1556098174501,
