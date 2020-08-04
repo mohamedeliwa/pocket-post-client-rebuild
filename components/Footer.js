@@ -14,7 +14,7 @@ const Footer = () => {
         <Link href="/">
           <a className="footer-link">Profile</a>
         </Link>
-        <Link href="/">
+        <Link href="/profile/settings">
           <a className="footer-link">Settings</a>
         </Link>
         <p className=" copyRight text-right text-secondary">

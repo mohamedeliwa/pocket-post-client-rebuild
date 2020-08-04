@@ -124,7 +124,7 @@ export default (props) => {
               </Link>
             </Dropdown.Item>
             <Dropdown.Item>
-              <Link href="/profile/[id]">
+              <Link href="/profile/settings">
                 <div>Settings</div>
               </Link>
             </Dropdown.Item>
