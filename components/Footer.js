@@ -11,7 +11,7 @@ const Footer = () => {
         <Link href="/">
           <a className="footer-link">Home</a>
         </Link>
-        <Link href="/">
+        <Link href="/profile/[id]" as={`/profile/hello`}>
           <a className="footer-link">Profile</a>
         </Link>
         <Link href="/profile/settings">

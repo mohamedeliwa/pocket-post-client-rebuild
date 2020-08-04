@@ -105,7 +105,7 @@ const PostContent = ({ post }) => {
           src={post.author.picture}
           rounded
         />
-        <Link href="/authors/[id]" as="/authors/hello">
+        <Link href="/profile/[id]" as={`/profile/hello`}>
           <Figure.Caption
             style={{ color: "#17a2b8", cursor: "pointer" }}
             className="ml-3 mb-2"
