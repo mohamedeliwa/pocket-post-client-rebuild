@@ -119,12 +119,12 @@ export default (props) => {
 
           <Dropdown.Menu>
             <Dropdown.Item>
-              <Link href="/authors/[id]" as={`/authors/hello`}>
+              <Link href="/profile/[id]" as={`/profile/hello`}>
                 <div>Profile</div>
               </Link>
             </Dropdown.Item>
             <Dropdown.Item>
-              <Link href="/profile/[id]">
+              <Link href="/profile/settings">
                 <div>Settings</div>
               </Link>
             </Dropdown.Item>
