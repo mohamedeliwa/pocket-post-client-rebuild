@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
+import WithAuth from "../../components/WithAuth";
 
 const Profile = () => {
   const [key, setKey] = useState("profile");
@@ -58,4 +59,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default WithAuth(Profile);
