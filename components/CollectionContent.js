@@ -19,10 +19,10 @@ const CollectionContent = (props) => {
       <br />
       <br />
       <ListGroup variant="flush">
-        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 1st post in the collection </StyledListItem></Link>
-        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 2nd post in the collection </StyledListItem></Link>
-        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 3rd post in the collection </StyledListItem></Link>
-        <Link href="/posts/[slug]" as='/posts/hello'><StyledListItem> 4th post in the collection </StyledListItem></Link>
+        <Link href="/posts/[id]" as='/posts/hello'><StyledListItem> 1st post in the collection </StyledListItem></Link>
+        <Link href="/posts/[id]" as='/posts/hello'><StyledListItem> 2nd post in the collection </StyledListItem></Link>
+        <Link href="/posts/[id]" as='/posts/hello'><StyledListItem> 3rd post in the collection </StyledListItem></Link>
+        <Link href="/posts/[id]" as='/posts/hello'><StyledListItem> 4th post in the collection </StyledListItem></Link>
         <hr />
       </ListGroup>
     </Container>
