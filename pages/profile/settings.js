@@ -6,16 +6,14 @@ import SettingForm from "../../components/SettingForm";
 import WithAuth from "../../components/WithAuth";
 import useSWR from "swr";
 import Spinner from "../../components/Spinner";
-
+import LoadingFailed from "../../components/LoadingFailed";
 
 const Settings = () => {
-  
   const [key, setKey] = useState("profile");
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: user, error } = useSWR("/api/authorInfo", fetcher);
-  if (error) return <div>failed to load</div>
-  if (!user) return <Spinner />
- 
+  if (error) return <LoadingFailed />;
+  if (!user) return <Spinner />;
 
   return (
     <Container>
@@ -51,16 +49,32 @@ const Settings = () => {
                 </button>
               </form>
             </Container>
-            <SettingForm label="First Name" inputType="text" value={user.name} />
+            <SettingForm
+              label="First Name"
+              inputType="text"
+              value={user.name}
+            />
             <SettingForm label="Last Name" inputType="text" value={user.name} />
-            <SettingForm label="Caption" inputType="text" value={user.caption} />
+            <SettingForm
+              label="Caption"
+              inputType="text"
+              value={user.caption}
+            />
           </Container>
         </Tab>
         <Tab eventKey="account" title="Account">
           <br />
           <Container>
-            <SettingForm label="Email Address" inputType="email" value="Jhon@example.com" />
-            <SettingForm label="Password" inputType="password" value="Jhon@123456" />
+            <SettingForm
+              label="Email Address"
+              inputType="email"
+              value="Jhon@example.com"
+            />
+            <SettingForm
+              label="Password"
+              inputType="password"
+              value="Jhon@123456"
+            />
           </Container>
         </Tab>
       </Tabs>
