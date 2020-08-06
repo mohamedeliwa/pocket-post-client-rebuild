@@ -21,9 +21,9 @@ const Report = styled.span`
   color: ${(props) => (props.reported === "true" ? "#AB293B" : "#212529")};
 `;
 
-const UserCard = () => {
+const UserCard = (props) => {
   const [reported, setReported] = useState(false);
-
+  const [user, setUser] = useState(props.user);
   const reporting = (e) => {
     e.preventDefault();
     setReported(!reported);
@@ -33,17 +33,16 @@ const UserCard = () => {
     <Jumbotron fluid className="bg-white">
       <StyledUserCard>
         <div className="user-info">
-          <h1>Jhon Deo</h1>
+          <h1>{user.name}</h1>
           <p>
-            Love to write and code, yet need to learn more. Feedback always
-            welcome.
+            {user.caption}
           </p>
           <div>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-success" variant="light">250</Badge>Posts
+              <Badge className="text-success" variant="light">{user.postsCount}</Badge>Posts
             </span>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-primary" variant="light">250</Badge>likes
+              <Badge className="text-primary" variant="light">{user.likesCount}</Badge>likes
             </span>
             <Report reported={reported ? "true" : "false"} onClick={reporting} >
               {reported ? "Reported" : "report"} <TiFlag />

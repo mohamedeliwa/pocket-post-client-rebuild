@@ -4,9 +4,17 @@ import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
 import WithAuth from "../../components/WithAuth";
+import useSWR from "swr";
+
 
 const Settings = () => {
+  
   const [key, setKey] = useState("profile");
+  const fetcher = (url) => fetch(url).then((r) => r.json());
+  const { data: user, error } = useSWR("/api/authorInfo", fetcher);
+  if (error) return <div>failed to load</div>
+  if (!user) return <div>loading...</div>
+ 
 
   return (
     <Container>
@@ -14,7 +22,7 @@ const Settings = () => {
         <title>Pocket-Post</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <UserCard />
+      <UserCard user={user} />
       <Tabs
         id="controlled-tab-example"
         activeKey={key}
@@ -42,16 +50,16 @@ const Settings = () => {
                 </button>
               </form>
             </Container>
-            <SettingForm label="First Name" inputType="text" />
-            <SettingForm label="Last Name" inputType="text" />
-            <SettingForm label="Caption" inputType="text" />
+            <SettingForm label="First Name" inputType="text" value={user.name} />
+            <SettingForm label="Last Name" inputType="text" value={user.name} />
+            <SettingForm label="Caption" inputType="text" value={user.caption} />
           </Container>
         </Tab>
         <Tab eventKey="account" title="Account">
           <br />
           <Container>
-            <SettingForm label="Email Address" inputType="email" />
-            <SettingForm label="Password" inputType="password" />
+            <SettingForm label="Email Address" inputType="email" value="Jhon@example.com" />
+            <SettingForm label="Password" inputType="password" value="Jhon@123456" />
           </Container>
         </Tab>
       </Tabs>

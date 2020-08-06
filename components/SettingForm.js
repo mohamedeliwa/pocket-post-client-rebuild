@@ -17,8 +17,8 @@ const ConfirmButton = styled(Button)`
 const SettingForm = (props) => {
   const [state, setState] = useState({
     editting: false,
-    defaultValue: "Jhon@example.com",
-    value: "Jhon@example.com",
+    defaultValue: props.value,
+    value: props.value,
   });
 
   const activate = (e) => {

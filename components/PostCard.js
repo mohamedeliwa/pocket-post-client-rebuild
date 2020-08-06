@@ -16,7 +16,7 @@ const PostCard = (props) => {
         <Card.Text>
           {excerpt}
         </Card.Text>
-        <Link href="/posts/[slug]" as={`/posts/${slug}`}>
+        <Link href="/posts/[id]" as={`/posts/${slug}`}>
             <Button variant="primary" >Read More &rarr;</Button>
         </Link>
       </Card.Body>
