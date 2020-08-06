@@ -4,12 +4,21 @@ import UserCard from "../../components/UserCard";
 import PostCard from "../../components/PostCard";
 import { Container, Tabs, Tab } from "react-bootstrap";
 import Collections from "../../components/Collections";
+import useSWR from "swr";
+import fetch from "isomorphic-unfetch";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
-  const PostsCards = props.allPosts.map((post) => (
-    <PostCard postDetails={post} key={post.slug} />
-  ));
+
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data: allPosts, error } = useSWR("/api/postList", fetcher);
+  const PostsCards = error ? (
+    <div>failed to load</div>
+  ) : !allPosts ? (
+    <div>loading...</div>
+  ) : (
+    allPosts.map((post) => <PostCard postDetails={post} key={post.slug} />)
+  );
 
   return (
     <Container /*className="bg-light"*/>
@@ -17,7 +26,7 @@ const Author = (props) => {
         <title>Pocket-Post</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <UserCard />
+      <UserCard user={props.user} />
 
       <Tabs
         id="controlled-tab-example"
@@ -30,96 +39,24 @@ const Author = (props) => {
         </Tab>
         <Tab eventKey="collections" title="Collections">
           <br />
-          <Collections />
+          <Collections collectionsList={props.collections} />
         </Tab>
       </Tabs>
     </Container>
   );
 };
 
-export const getStaticProps = async () => {
-  const allPosts = getAllPosts([
-    "title",
-    "date",
-    "slug",
-    "author",
-    "coverImage",
-    "excerpt",
-  ]);
+// This gets called on every request
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:3000/api/authorInfo`)
+  const user = await res.json()
+  const res2 = await fetch(`http://localhost:3000/api/collectionList`)
+  const collections = await res2.json()
 
-  return {
-    props: { allPosts },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const posts = [{ id: "hello" }, { id: "random" }, { id: "welcome" }]; //getAllPosts(["slug"]);
-
-  return {
-    paths: posts.map((posts) => {
-      return {
-        params: {
-          id: posts.id,
-        },
-      };
-    }),
-    fallback: true,
-  };
-};
-
-function getAllPosts() {
-  return [
-    {
-      title: "Hello world",
-      date: "2020-05-03",
-      slug: "hello",
-      author: /*params.slug*/ {
-        name: "Jhon Deo",
-        picture: "/blog/authors/jj.jpeg",
-      },
-      coverImage: "/blog/hello-world/cover.jpg",
-      excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda",
-    },
-    {
-      title: "Hello world",
-      date: "2020-05-03",
-      slug: "random",
-      author: /*params.slug*/ {
-        name: "Jhon Deo",
-        picture: "/blog/authors/jj.jpeg",
-      },
-      coverImage: "/blog/hello-world/cover.jpg",
-      excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda",
-    },
-    {
-      title: "Hello world",
-      date: "2020-05-03",
-      slug: "welcome",
-      author: /*params.slug*/ {
-        name: "Jhon Deo",
-        picture: "/blog/authors/jj.jpeg",
-      },
-      coverImage: "/blog/hello-world/cover.jpg",
-      excerpt: "lorem ispum asd asdkjaljkdcnl ljknsda",
-    },
-  ];
+  // Pass data to the page via props
+  return { props: { user, collections } }
 }
 
-/**
- * reconsider making this page a SSR page
- * SEO maybe not important here.
- * This page may be a static html page iwth client side rendering
- *
- */
-// This gets called on every request
-// export async function getServerSideProps(context) {
-//   // Fetch data from external API
-//   console.log(context.query);
-//   console.log(context.params);
-//   const data = "asd";
-
-//   // Pass data to the page via props
-//   return { props: { data } };
-// }
 
 export default Author;

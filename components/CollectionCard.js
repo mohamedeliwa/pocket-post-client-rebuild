@@ -19,17 +19,16 @@ const CollectionCard = (props) => {
         </div>
 
         <div className="collection-info">
-          <h1>Collection name</h1>
+          <h1>{props.collection.name}</h1>
           <p>
-            Collection description, yet need to learn more. Feedback always
-            welcome.
+            {props.collection.desc}
           </p>
           <div>
             <span style={{ margin: "0px 4px" }}>
-              <Badge variant="light">250</Badge>Posts
+              <Badge variant="light">{props.collection.postCount}</Badge>Posts
             </span>
             <span style={{ margin: "0px 4px" }}>
-              <Badge variant="light">250</Badge>likes
+              <Badge variant="light">{props.collection.likesCount}</Badge>likes
             </span>
             <span style={{ margin: "0px 0px 0px 15px", cursor: "pointer" }}>
               report <TiFlag />
