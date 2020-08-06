@@ -2,7 +2,7 @@ import { Container, Alert } from "react-bootstrap";
 
 // this Component can be used as a general error comonent, displayed wherever needed
 // with some modifications as changing its name, making it accept props to change error text based on each error
-export default () => {
+export default (props) => {
   return (
     <Container
       fluid
@@ -11,7 +11,7 @@ export default () => {
      <Alert variant="danger">
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
         <p>
-          Failed to load! , please try again later.
+          {props.msg}
         </p>
       </Alert>
     </Container>

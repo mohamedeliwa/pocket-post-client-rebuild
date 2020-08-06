@@ -7,7 +7,7 @@ import Collections from "../../components/Collections";
 import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
 import Spinner from "../../components/Spinner";
-import LoadingFailed from "../../components/LoadingFailed";
+import ErrorMsg from "../../components/ErrorMsg";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -15,7 +15,7 @@ const Author = (props) => {
   const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data: allPosts, error } = useSWR("/api/postList", fetcher);
   const PostsCards = error ? (
-    <LoadingFailed />
+    <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (

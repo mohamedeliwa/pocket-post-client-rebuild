@@ -6,7 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import SidebarWidgets from "../components/SidebarWidgets";
 import styled from "styled-components";
 import useSWR from "swr";
-import LoadingFailed from "../components/LoadingFailed";
+import ErrorMsg from "../components/ErrorMsg";
 
 const StyledHome = styled(Container)``;
 
@@ -15,7 +15,7 @@ const Home = (props) => {
   const { data: allPosts, error } = useSWR("/api/postList", fetcher);
 
   const PostsCards = error ? (
-    <LoadingFailed />
+    <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (

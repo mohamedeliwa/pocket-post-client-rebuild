@@ -6,13 +6,13 @@ import SettingForm from "../../components/SettingForm";
 import WithAuth from "../../components/WithAuth";
 import useSWR from "swr";
 import Spinner from "../../components/Spinner";
-import LoadingFailed from "../../components/LoadingFailed";
+import ErrorMsg from "../../components/ErrorMsg";
 
 const Settings = () => {
   const [key, setKey] = useState("profile");
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: user, error } = useSWR("/api/authorInfo", fetcher);
-  if (error) return <LoadingFailed />;
+  if (error) return <ErrorMsg msg="Failed to load! , please try again later." />;
   if (!user) return <Spinner />;
 
   return (
