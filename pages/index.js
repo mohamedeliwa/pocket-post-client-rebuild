@@ -1,6 +1,7 @@
 import Head from "next/head";
 import PostCard from "../components/PostCard";
 import Pagination from "../components/Pagination";
+import Spinner from '../components/Spinner';
 import { Container, Row, Col } from "react-bootstrap";
 import SidebarWidgets from "../components/SidebarWidgets";
 import styled from "styled-components";
@@ -15,7 +16,7 @@ const Home = (props) => {
   const PostsCards = error ? (
     <div>failed to load</div>
   ) : !allPosts ? (
-    <div>loading...</div>
+    <Spinner />
   ) : (
     allPosts.map((post) => <PostCard postDetails={post} key={post.slug} />)
   );
