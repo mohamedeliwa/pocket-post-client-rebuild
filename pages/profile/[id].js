@@ -6,6 +6,7 @@ import { Container, Tabs, Tab } from "react-bootstrap";
 import Collections from "../../components/Collections";
 import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
+import Spinner from "../../components/Spinner";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -15,7 +16,7 @@ const Author = (props) => {
   const PostsCards = error ? (
     <div>failed to load</div>
   ) : !allPosts ? (
-    <div>loading...</div>
+    <Spinner />
   ) : (
     allPosts.map((post) => <PostCard postDetails={post} key={post.slug} />)
   );

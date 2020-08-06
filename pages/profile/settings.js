@@ -5,6 +5,7 @@ import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
 import WithAuth from "../../components/WithAuth";
 import useSWR from "swr";
+import Spinner from "../../components/Spinner";
 
 
 const Settings = () => {
@@ -13,7 +14,7 @@ const Settings = () => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: user, error } = useSWR("/api/authorInfo", fetcher);
   if (error) return <div>failed to load</div>
-  if (!user) return <div>loading...</div>
+  if (!user) return <Spinner />
  
 
   return (
