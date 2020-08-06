@@ -1,11 +1,12 @@
 import Head from "next/head";
 import PostCard from "../components/PostCard";
 import Pagination from "../components/Pagination";
-import Spinner from '../components/Spinner';
+import Spinner from "../components/Spinner";
 import { Container, Row, Col } from "react-bootstrap";
 import SidebarWidgets from "../components/SidebarWidgets";
 import styled from "styled-components";
 import useSWR from "swr";
+import ErrorMsg from "../components/ErrorMsg";
 
 const StyledHome = styled(Container)``;
 
@@ -14,7 +15,7 @@ const Home = (props) => {
   const { data: allPosts, error } = useSWR("/api/postList", fetcher);
 
   const PostsCards = error ? (
-    <div>failed to load</div>
+    <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (

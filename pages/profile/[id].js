@@ -7,6 +7,7 @@ import Collections from "../../components/Collections";
 import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
 import Spinner from "../../components/Spinner";
+import ErrorMsg from "../../components/ErrorMsg";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -14,7 +15,7 @@ const Author = (props) => {
   const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data: allPosts, error } = useSWR("/api/postList", fetcher);
   const PostsCards = error ? (
-    <div>failed to load</div>
+    <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (
@@ -50,14 +51,13 @@ const Author = (props) => {
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/authorInfo`)
-  const user = await res.json()
-  const res2 = await fetch(`http://localhost:3000/api/collectionList`)
-  const collections = await res2.json()
+  const res = await fetch(`http://localhost:3000/api/authorInfo`);
+  const user = await res.json();
+  const res2 = await fetch(`http://localhost:3000/api/collectionList`);
+  const collections = await res2.json();
 
   // Pass data to the page via props
-  return { props: { user, collections } }
+  return { props: { user, collections } };
 }
-
 
 export default Author;
