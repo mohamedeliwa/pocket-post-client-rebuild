@@ -6,9 +6,11 @@ import {
   MdBookmarkBorder,
   MdThumbUp,
   MdThumbDown,
+  MdDelete,
 } from "react-icons/md";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { TiFlag } from "react-icons/ti";
+import { FiEdit } from "react-icons/fi";
 import styled from "styled-components";
 import Output from "editorjs-react-renderer";
 
@@ -49,36 +51,20 @@ const Report = styled(TiFlag)`
   color: ${(props) => (props.reported === "true" ? "#AB293B" : "#6c757d")};
 `;
 
+const Edit = styled(FiEdit)`
+  margin: 2px 4px;
+  cursor: pointer;
+`;
+const Delete = styled(MdDelete)`
+  margin: 2px 4px;
+  cursor: pointer;
+  color: #AB293B;
+`;
+
 const PostContent = ({ post }) => {
-  // let dateArray = post.date.split("");
-  // const tIndex = dateArray.indexOf("T");
-  // dateArray = dateArray.slice(0, tIndex);
-  // const  date = dateArray.join("");
   const [hearted, setHearted] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [reported, setReported] = useState(false);
-
-  // useEffect(() => {
-  //   const ps = document.querySelectorAll(".div-content p");
-  //   ps.forEach((p) => p.classList.add("lead"));
-
-  //   const blockquotes = document.querySelectorAll(".div-content blockquote");
-  //   blockquotes.forEach((blockquote) => blockquote.classList.add("blockquote"));
-
-  //   const blockquotesFooter = document.querySelectorAll(
-  //     ".div-content blockquote footer"
-  //   );
-  //   blockquotesFooter.forEach((blockquoteFooter) =>
-  //     blockquoteFooter.classList.add("blockquote")
-  //   );
-
-  //   const uls = document.querySelectorAll(".div-content ul");
-  //   uls.forEach((ul) => ul.classList.add("list-group"));
-
-  //   const ulsLis = document.querySelectorAll(".div-content ul li");
-  //   ulsLis.forEach((li) => li.classList.add("list-group-item"));
-  // });
-
   const hearting = (e) => {
     e.preventDefault();
     setHearted(!hearted);
@@ -93,6 +79,41 @@ const PostContent = ({ post }) => {
     e.preventDefault();
     setReported(!reported);
   };
+
+  const readerControls = (
+    <>
+      <Badge
+        className="bg-white text-secondary"
+        variant="light"
+        style={{ margin: "2px 8px", padding: 0 }}
+      >
+        <EmptyHeart hearted={hearted ? "true" : "false"} onClick={hearting} />
+        <FullHeart hearted={hearted ? "true" : "false"} onClick={hearting} />
+        <span
+          className=""
+          style={{ fontSize: "19px", margin: "0px 0px 0px 2px" }}
+        >
+          55
+        </span>
+      </Badge>
+      <EmptyBookmark
+        bookmarked={bookmarked ? "true" : "false"}
+        onClick={bookmarking}
+      />
+      <FullBookmark
+        bookmarked={bookmarked ? "true" : "false"}
+        onClick={bookmarking}
+      />
+      <Report onClick={reporting} reported={reported ? "true" : "false"} />
+    </>
+  );
+
+  const ownerControls = (
+    <>
+      <Edit />
+      <Delete />
+    </>
+  );
 
   return (
     <Container>
@@ -119,43 +140,21 @@ const PostContent = ({ post }) => {
 
       <p>Posted on {post.date}</p>
       <hr />
-
+      {/* Post Cover Image */}
       <img className="img-fluid rounded" src={post.coverImage} alt="" />
 
       <hr />
+      {/* Post Controlers */}
       <div
         className=" d-flex justify-content-end align-items-end text-secondary"
         style={{ fontSize: "26px" }}
       >
-        <Badge
-          className="bg-white text-secondary"
-          variant="light"
-          style={{ margin: "2px 8px", padding: 0 }}
-        >
-          <EmptyHeart hearted={hearted ? "true" : "false"} onClick={hearting} />
-          <FullHeart hearted={hearted ? "true" : "false"} onClick={hearting} />
-          <span
-            className=""
-            style={{ fontSize: "19px", margin: "0px 0px 0px 2px" }}
-          >
-            55
-          </span>
-        </Badge>
-        <EmptyBookmark
-          bookmarked={bookmarked ? "true" : "false"}
-          onClick={bookmarking}
-        />
-        <FullBookmark
-          bookmarked={bookmarked ? "true" : "false"}
-          onClick={bookmarking}
-        />
-        <Report onClick={reporting} reported={reported ? "true" : "false"} />
+        {readerControls}
+        {/* {ownerControls} */}
       </div>
+      {/* Outputting the content of a post */}
       <Output data={post.content} />
-      {/* <div
-        className="div-content"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      ></div> */}
+      {/* Post tags */}
       <div className="badges-div">
         <br />
         <hr />
