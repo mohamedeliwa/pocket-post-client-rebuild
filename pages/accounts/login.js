@@ -1,9 +1,8 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Form, Button } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
-
 
 const Login = styled(Container)`
   //background-color: #eee;
@@ -44,22 +43,60 @@ const FormHeader = styled.h1`
 
 const login = () => {
   const router = useRouter();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, login } = useContext(AuthContext);
+  const [credentials, setCredentials] = useState({
+    email: "random@random.com",
+    password: "Random12345",
+  });
+
   useEffect(() => {
     if (isAuthenticated) router.push("/");
-  }, []);
+  }, [isAuthenticated]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    switch (e.target.type) {
+      case "email":
+        setCredentials({
+          ...credentials,
+          email: e.target.value,
+        });
+        break;
+      case "password":
+        setCredentials({
+          ...credentials,
+          password: e.target.value,
+        });
+        break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(credentials);
+  };
 
   return (
     <Login>
-      <StyledForm className="bg-light">
+      <StyledForm className="bg-light" onSubmit={handleSubmit}>
         <FormHeader>Pocket-Post</FormHeader>
 
         <Form.Group controlId="formBasicEmail">
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={handleChange}
+            value={credentials.email}
+          />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            value={credentials.password}
+          />
         </Form.Group>
 
         <Button variant="primary" type="submit" block>
