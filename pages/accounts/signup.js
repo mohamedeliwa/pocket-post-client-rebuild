@@ -46,7 +46,7 @@ const signup = () => {
   useEffect(() => {
     if(isAuthenticated) router.push("/")
 
-  }, [])
+  }, [isAuthenticated])
 
   return (
     <SignUp>

@@ -40,7 +40,7 @@ const StyledToggle = styled(Dropdown.Toggle)`
 
 export default (props) => {
   const { isAuthenticated } = useContext(AuthContext);
-  
+
   /**
    * if the user not authenticated
    **/
@@ -142,7 +142,11 @@ export default (props) => {
   );
   return (
     <Container>
-      {isAuthenticated ? authenticatedNav : nonAuthenticatedNav}
+      {isAuthenticated === null
+        ? null
+        : isAuthenticated
+        ? authenticatedNav
+        : nonAuthenticatedNav}
     </Container>
   );
 };

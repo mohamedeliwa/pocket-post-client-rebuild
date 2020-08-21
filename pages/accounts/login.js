@@ -47,7 +47,7 @@ const login = () => {
   const { isAuthenticated } = useContext(AuthContext);
   useEffect(() => {
     if (isAuthenticated) router.push("/");
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <Login>

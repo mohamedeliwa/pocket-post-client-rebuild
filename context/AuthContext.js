@@ -3,7 +3,7 @@ import fetch from "isomorphic-unfetch";
 import { useRouter } from "next/router";
 
 const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: null,
   user: {
     id: "",
     name: "",
@@ -27,8 +27,8 @@ const AuthContextProvider = (props) => {
         // end-point for reading profile info
         const url = "http://localhost:5000/users/profile";
         const response = await fetch(url, { credentials: "include" });
-        const user = await response.json();
-        if ((await response.status) === 200) {
+        if (response.status === 200) {
+          const user = await response.json();
           setState({
             isAuthenticated: true,
             user: {
@@ -39,10 +39,16 @@ const AuthContextProvider = (props) => {
             },
           });
         } else {
-          setState(initialState);
+          setState({
+            ...initialState,
+            isAuthenticated: true
+          });
         }
       } catch (error) {
-        setState(initialState);
+        setState({
+          ...initialState,
+          isAuthenticated: true
+        });
         console.log(error.message);
       }
     })();
@@ -103,7 +109,7 @@ const AuthContextProvider = (props) => {
         }),
       });
 
-      if ((await response.status) === 200) {
+      if (response.status === 200) {
         const user = await response.json();
         setState({
           isAuthenticated: true,
@@ -131,8 +137,11 @@ const AuthContextProvider = (props) => {
         method: "POST",
         credentials: "include",
       });
-      if ((await response.status) === 200) {
-        setState(initialState);
+      if (response.status === 200) {
+        setState({
+          ...initialState,
+          isAuthenticated: false
+        });
         Router.push("/");
       } else {
         throw new Error("loging out failed!");
