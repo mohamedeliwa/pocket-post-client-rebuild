@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
@@ -7,13 +7,16 @@ import WithAuth from "../../components/WithAuth";
 import useSWR from "swr";
 import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
+import { AuthContext } from "../../context/AuthContext";
 
-const Settings = () => {
+const Settings = (props) => {
+  const { user } = useContext(AuthContext);
   const [key, setKey] = useState("profile");
   const fetcher = (url) => fetch(url).then((r) => r.json());
-  const { data: user, error } = useSWR("/api/authorInfo", fetcher);
-  if (error) return <ErrorMsg msg="Failed to load! , please try again later." />;
-  if (!user) return <Spinner />;
+  // const { data: user, error } = useSWR("/api/authorInfo", fetcher);
+  // if (error)
+  //   return <ErrorMsg msg="Failed to load! , please try again later." />;
+  // if (!user) return <Spinner />;
 
   return (
     <Container>
@@ -52,9 +55,9 @@ const Settings = () => {
             <SettingForm
               label="First Name"
               inputType="text"
-              value={user.name}
+              value={user.firstName}
             />
-            <SettingForm label="Last Name" inputType="text" value={user.name} />
+            <SettingForm label="Last Name" inputType="text" value={user.lastName} />
             <SettingForm
               label="Caption"
               inputType="text"
@@ -68,7 +71,7 @@ const Settings = () => {
             <SettingForm
               label="Email Address"
               inputType="email"
-              value="Jhon@example.com"
+              value={user.email}
             />
             <SettingForm
               label="Password"
