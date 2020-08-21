@@ -33,8 +33,6 @@ const initialState = {
   // token: "",
 };
 
-
-
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
@@ -53,7 +51,7 @@ const AuthContextProvider = (props) => {
           const user = await response.json();
           setState({
             isAuthenticated: true,
-            user, 
+            user,
           });
         } else {
           setState({
@@ -76,8 +74,9 @@ const AuthContextProvider = (props) => {
       // end-point for registering a new user
       const url = "http://localhost:5000/users";
       // sending request with the new user info
-      const response = fetch(url, {
+      const response = await fetch(url, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -88,8 +87,9 @@ const AuthContextProvider = (props) => {
           email: userInfo.email,
         }),
       });
+      console.log(response);
       // checking if the user is successfully registered
-      if ((await response.status) === 201) {
+      if (response.status === 201) {
         // user object returned by the server
         const user = await response.json();
         setState({
@@ -97,6 +97,7 @@ const AuthContextProvider = (props) => {
           user,
         });
         Router.push("/");
+        alert("a verification sent to your email address");
       } else {
         throw new Error("Registeration Failed!");
       }

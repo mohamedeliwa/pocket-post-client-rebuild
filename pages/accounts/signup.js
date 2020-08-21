@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Form, Button } from "react-bootstrap";
@@ -42,36 +42,96 @@ const FormHeader = styled.h1`
 
 const signup = () => {
   const router = useRouter();
-  const { isAuthenticated } = useContext(AuthContext);
+  const [userInfo, setUserInfo] = useState({
+    firstName: "test",
+    lastName: "test",
+    password: "Test@0123456789",
+    email: "test@test.com",
+  });
+  const { isAuthenticated, signup } = useContext(AuthContext);
   useEffect(() => {
-    if(isAuthenticated) router.push("/")
+    if (isAuthenticated) router.push("/");
+  }, [isAuthenticated]);
 
-  }, [isAuthenticated])
+  const handleChange = (e) => {
+    e.preventDefault();
+    switch (e.target.id) {
+      case "firstName":
+        setUserInfo({
+          ...userInfo,
+          firstName: e.target.value,
+        });
+        break;
+      case "lastName":
+        setUserInfo({
+          ...userInfo,
+          lastName: e.target.value,
+        });
+        break;
+      case "email":
+        setUserInfo({
+          ...userInfo,
+          email: e.target.value,
+        });
+        break;
+      case "password":
+        setUserInfo({
+          ...userInfo,
+          password: e.target.value,
+        });
+        break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signup(userInfo);
+  };
 
   return (
     <SignUp>
-      <StyledForm className="bg-light">
+      <StyledForm className="bg-light" onSubmit={handleSubmit}>
         <FormHeader>Pocket-Post</FormHeader>
 
         {/* for first name */}
-        <Form.Group controlId="formBasicFirstName">
-          <Form.Control type="text" placeholder="First name" />
+        <Form.Group controlId="firstName">
+          <Form.Control
+            type="text"
+            placeholder="First name"
+            onChange={handleChange}
+            value={userInfo.firstName}
+          />
         </Form.Group>
 
         {/* for last name */}
-        <Form.Group controlId="formBasicLastName">
-          <Form.Control type="text" placeholder="Last name" />
+        <Form.Group controlId="lastName">
+          <Form.Control
+            type="text"
+            placeholder="Last name"
+            onChange={handleChange}
+            value={userInfo.lastName}
+          />
         </Form.Group>
 
-        <Form.Group controlId="formBasicEmail">
-          <Form.Control type="email" placeholder="Email" />
+        <Form.Group controlId="email">
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            value={userInfo.email}
+          />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Control type="password" placeholder="Password" />
+        <Form.Group controlId="password">
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            value={userInfo.password}
+          />
         </Form.Group>
 
         <Button variant="primary" type="submit" block>

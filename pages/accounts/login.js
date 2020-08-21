@@ -54,6 +54,7 @@ const login = () => {
   }, [isAuthenticated]);
 
   const handleChange = (e) => {
+    e.preventDefault();
     switch (e.target.type) {
       case "email":
         setCredentials({
