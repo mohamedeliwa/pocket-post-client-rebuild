@@ -4,14 +4,14 @@ import { Container } from "react-bootstrap";
 import Link from "next/link";
 
 const Footer = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
   const authenticatedFooter = (
     <footer>
       <Container className="text-right">
         <Link href="/">
           <a className="footer-link">Home</a>
         </Link>
-        <Link href="/profile/[id]" as={`/profile/hello`}>
+        <Link href="/profile/[id]" as={`/profile/${user._id}`}>
           <a className="footer-link">Profile</a>
         </Link>
         <Link href="/profile/settings">
@@ -81,7 +81,11 @@ const Footer = () => {
       `}</style>
     </footer>
   );
-  return isAuthenticated ? authenticatedFooter : nonAuthenticatedFooter;
+  return isAuthenticated === null
+    ? null
+    : isAuthenticated
+    ? authenticatedFooter
+    : nonAuthenticatedFooter;
 };
 
 export default Footer;

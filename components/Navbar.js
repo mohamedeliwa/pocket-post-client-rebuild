@@ -39,7 +39,7 @@ const StyledToggle = styled(Dropdown.Toggle)`
 `;
 
 export default (props) => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout, user } = useContext(AuthContext);
 
   /**
    * if the user not authenticated
@@ -119,7 +119,7 @@ export default (props) => {
 
           <Dropdown.Menu>
             <Dropdown.Item>
-              <Link href="/profile/[id]" as={`/profile/hello`}>
+              <Link href="/profile/[id]" as={`/profile/${user._id}`}>
                 <div>Profile</div>
               </Link>
             </Dropdown.Item>
