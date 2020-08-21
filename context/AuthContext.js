@@ -5,13 +5,35 @@ import { useRouter } from "next/router";
 const initialState = {
   isAuthenticated: null,
   user: {
-    id: "",
-    name: "",
+    _id: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    image: "",
+    emailConfirmed: false,
+    paybalEmail: "",
+    confirmedPaybal: false,
+    accountBalance: 0,
+    postsCount: 0,
+    seriesesCount: 0,
+    followers: [],
+    followersCount: 0,
+    following: [],
+    followingCount: 0,
+    bookmarkedPosts: [],
+    likedPosts: [],
+    likedSerieses: [],
+    likesCount: 0,
+    reportedPosts: [],
+    reportedSerieses: [],
+    reportedUsers: [],
+    otherSocial: [],
+    updatedAt: "",
+    createdAt: "",
   },
-  token: "",
+  // token: "",
 };
+
+
 
 export const AuthContext = createContext();
 
@@ -31,23 +53,18 @@ const AuthContextProvider = (props) => {
           const user = await response.json();
           setState({
             isAuthenticated: true,
-            user: {
-              id: await user._id,
-              name: `${await user.firstName} ${await user.lastName}`,
-              email: await user.email,
-              image: await user.image,
-            },
+            user, 
           });
         } else {
           setState({
             ...initialState,
-            isAuthenticated: false
+            isAuthenticated: false,
           });
         }
       } catch (error) {
         setState({
           ...initialState,
-          isAuthenticated: false
+          isAuthenticated: false,
         });
         console.log(error.message);
       }
@@ -59,7 +76,7 @@ const AuthContextProvider = (props) => {
       // end-point for registering a new user
       const url = "http://localhost:5000/users";
       // sending request with the new user info
-      const respone = fetch(url, {
+      const response = fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,12 +94,7 @@ const AuthContextProvider = (props) => {
         const user = await response.json();
         setState({
           isAuthenticated: true,
-          user: {
-            id: await user._id,
-            name: `${await user.firstName} ${await user.lastName}`,
-            email: await user.email,
-            image: await user.image,
-          },
+          user,
         });
         Router.push("/");
       } else {
@@ -113,12 +125,7 @@ const AuthContextProvider = (props) => {
         const user = await response.json();
         setState({
           isAuthenticated: true,
-          user: {
-            id: await user._id,
-            name: `${await user.firstName} ${await user.lastName}`,
-            email: await user.email,
-            image: await user.image,
-          },
+          user,
         });
         Router.push("/");
       } else {
@@ -140,7 +147,7 @@ const AuthContextProvider = (props) => {
       if (response.status === 200) {
         setState({
           ...initialState,
-          isAuthenticated: false
+          isAuthenticated: false,
         });
         Router.push("/");
       } else {
