@@ -39,7 +39,7 @@ const StyledToggle = styled(Dropdown.Toggle)`
 `;
 
 export default (props) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   /**
    * if the user not authenticated
@@ -131,7 +131,7 @@ export default (props) => {
             <Dropdown.Divider />
             <Dropdown.Item>
               <Link href="/accounts/login">
-                <div>Logout</div>
+                <div onClick={logout}>Logout</div>
               </Link>
             </Dropdown.Item>
           </Dropdown.Menu>
