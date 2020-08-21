@@ -123,7 +123,7 @@ const PostContent = ({ post }) => {
           width={56}
           height={56}
           alt="56x56"
-          src={post.author.picture}
+          src={post.owner.avatar}
           rounded
         />
         <Link href="/profile/[id]" as={`/profile/hello`}>
@@ -131,14 +131,14 @@ const PostContent = ({ post }) => {
             style={{ color: "#17a2b8", cursor: "pointer" }}
             className="ml-3 mb-2"
           >
-            {post.author.name}
+            {`${post.owner.firstName} ${post.owner.lastName}`}
           </Figure.Caption>
         </Link>
       </Figure>
 
       <hr />
 
-      <p>Posted on {post.date}</p>
+      <p>Posted on {post.updatedAt.slice(0,10)}</p>
       <hr />
       {/* Post Cover Image */}
       <img className="img-fluid rounded" src={post.coverImage} alt="" />
