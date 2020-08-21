@@ -27,7 +27,14 @@ const CollectionCard = (props) => {
   );
   const ownerControls = (
     <>
-      <MdDelete style={{color: "red", margin: "auto auto auto 20px", fontSize: "20px", cursor: "pointer"}}/>
+      <MdDelete
+        style={{
+          color: "red",
+          margin: "auto auto auto 20px",
+          fontSize: "20px",
+          cursor: "pointer",
+        }}
+      />
     </>
   );
   return (
@@ -39,11 +46,11 @@ const CollectionCard = (props) => {
 
         <div className="collection-info">
           <h1>{props.collection.name}</h1>
-          <p>{props.collection.desc}</p>
+          <p>{props.collection.description}</p>
           {/* Controls */}
           <div>
-          {readerControls}
-          {/* {ownerControls} */}
+            {readerControls}
+            {/* {ownerControls} */}
           </div>
           <br />
           <Button onClick={props.fn}>View Collection</Button>
@@ -54,3 +61,14 @@ const CollectionCard = (props) => {
 };
 
 export default CollectionCard;
+// collection =   {
+//   likesCount: 0,
+//   _id: '5f4034298fbe501e540f3a80',
+//   name: '1sasdast series',
+//   description: 'Hello world',
+//   owner: '5f3bf5f54ceb7008a4684ce8',
+//   coverImage: 'QXNkYXM=',
+//   createdAt: '2020-08-21T20:52:57.501Z',
+//   updatedAt: '2020-08-21T20:52:57.501Z',
+//   __v: 0
+// }

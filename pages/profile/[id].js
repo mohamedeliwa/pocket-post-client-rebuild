@@ -51,14 +51,15 @@ const Author = (props) => {
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
+  // getting user's id from routing params
   const id = context.params.id;
-  // const res = await fetch(`http://localhost:3000/api/authorInfo`);
+  // fetching user's public information
   const res = await fetch(`http://localhost:5000/users/profile/${id}`);
   const user = await res.json();
-  console.log(await user);
-  const res2 = await fetch(`http://localhost:3000/api/collectionList`);
+  // fechting user's post collections
+  const res2 = await fetch(`http://localhost:5000/series?user_id=${id}`);
   const collections = await res2.json();
-
+  console.log(await collections);
   // Pass data to the page via props
   return { props: { user, collections } };
 }
