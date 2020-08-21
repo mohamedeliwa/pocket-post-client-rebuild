@@ -13,13 +13,13 @@ const Author = (props) => {
   const [key, setKey] = useState("allPosts");
 
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data: allPosts, error } = useSWR("/api/postList", fetcher);
+  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}`, fetcher);
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (
-    allPosts.map((post) => <PostCard postDetails={post} key={post.slug} />)
+    allPosts.map((post) => <PostCard postDetails={post} key={post._id} />)
   );
 
   return (
@@ -51,8 +51,11 @@ const Author = (props) => {
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/authorInfo`);
+  const id = context.params.id;
+  // const res = await fetch(`http://localhost:3000/api/authorInfo`);
+  const res = await fetch(`http://localhost:5000/users/profile/${id}`);
   const user = await res.json();
+  console.log(await user);
   const res2 = await fetch(`http://localhost:3000/api/collectionList`);
   const collections = await res2.json();
 
