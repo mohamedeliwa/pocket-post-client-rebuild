@@ -41,13 +41,13 @@ const AuthContextProvider = (props) => {
         } else {
           setState({
             ...initialState,
-            isAuthenticated: true
+            isAuthenticated: false
           });
         }
       } catch (error) {
         setState({
           ...initialState,
-          isAuthenticated: true
+          isAuthenticated: false
         });
         console.log(error.message);
       }
