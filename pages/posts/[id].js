@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   // Fetch data from external API
   // getting post's id from routing params
   const id = context.params.id;
-  const res = await fetch(`http://localhost:5000/posts/${id}`);
+  const res = await fetch(`http://localhost:5000/posts/${id}/public`);
   // temporary fetching test post info till end-point for post feching updated on the server
   const res2 = await fetch(`http://localhost:3000/api/post`);
   const post = await res.json();
