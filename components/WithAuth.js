@@ -2,15 +2,13 @@ import { useContext } from "react";
 import Error from "next/error";
 import { AuthContext } from "../context/AuthContext";
 
-
-const WithAuth = Component => {
-
+const WithAuth = (Component) => {
   // hoc => function that returns a component
 
-  return props => {
+  return (props) => {
     const { isAuthenticated } = useContext(AuthContext);
     // console.log(isAuthenticated);
-    return isAuthenticated ? (
+    return isAuthenticated === null ? null : isAuthenticated ? (
       <Component {...props} />
     ) : (
       <Error statusCode={404} />
