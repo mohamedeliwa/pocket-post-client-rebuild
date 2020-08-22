@@ -12,14 +12,13 @@ const StyledHome = styled(Container)``;
 
 const Home = (props) => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
-  const { data: allPosts, error } = useSWR("/api/postList", fetcher);
-
+  const { data: allPosts, error } = useSWR("http://localhost:5000/posts", fetcher);
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (
-    allPosts.map((post) => <PostCard postDetails={post} key={post.slug} />)
+    allPosts.map((post) => <PostCard postDetails={post} key={post._id} />)
   );
 
   return (
