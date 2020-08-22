@@ -18,7 +18,7 @@ const Post = (props) => {
           </Col>
 
           <Col md={12} lg={4}>
-            <SidebarWidgets authorImage={props.post.author.picture} />
+            <SidebarWidgets /*authorImage={props.post.owner.avatar}*/ />
           </Col>
         </Row>
       </Container>
@@ -28,10 +28,23 @@ const Post = (props) => {
 
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/post`);
+  // getting post's id from routing params
+  const id = context.params.id;
+  const res = await fetch(`http://localhost:5000/posts/${id}`);
+  // temporary fetching test post info till end-point for post feching updated on the server
+  const res2 = await fetch(`http://localhost:3000/api/post`);
   const post = await res.json();
+  const post2 = await res2.json();
   // Pass data to the page via props
-  return { props: { post } };
+  return { props: { post: {
+    ...post,
+    owner: {
+      ...post.owner,
+      avatar: post2.author.picture
+    },
+    coverImage: post2.coverImage,
+    content: post2.content
+  } } };
 }
 
 export default Post;
