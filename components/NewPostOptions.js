@@ -34,11 +34,11 @@ const NewPostOptions = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.showEditor("editor");
     props.setPost({
       ...props.post,
       ...state
     });
+    props.showEditor("editor");
   };
 
   return (
