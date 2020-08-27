@@ -8,6 +8,13 @@ import WithAuth from "../../components/WithAuth";
 const New = () => {
   const [view, setView] = useState("options");
 
+  const [post, setPost] = useState({
+    title: "",
+    coverImage: "",
+    series: "",
+    content: "hello world"
+  });
+  console.log("New: ", post);
   const changeView = (value) => {
     if (value === "options" || value === "editor") {
       setView(value);
@@ -32,12 +39,17 @@ const New = () => {
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
       </Head>
       {view === "options" ? (
-        <NewPageOptions showEditor={changeView} />
+        <NewPageOptions showEditor={changeView} post={post} setPost={setPost} />
       ) : (
         <>
           <h5 className="text-center">Create new Post</h5>
 
-          <EditorJS data={x} exitEditor={changeView} />
+          <EditorJS
+            data={x}
+            exitEditor={changeView}
+            post={post}
+            setPost={setPost}
+          />
         </>
       )}
     </Container>
