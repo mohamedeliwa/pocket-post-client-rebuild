@@ -51,7 +51,15 @@ export default class extends Component {
     e.preventDefault();
     this.editor
       .save()
-      .then((data) => console.log(data))
+      .then((data) => {
+        data = {
+          ...data,
+          title: this.props.post.title,
+          coverImage: this.props.post.coverImage,
+          series: this.props.post.series
+        }
+        console.log(data);
+      })
       .catch((error) => {
         console.log("Saving failed: ", error);
       });
