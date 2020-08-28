@@ -35,7 +35,15 @@ const NewPageOptions = (props) => {
           />
         </Form.Group>
       </Form>
-      {!view ? null : view === "post" ? <NewPostOptions showEditor={props.showEditor}/> : <NewCollectionOptions />}
+      {!view ? null : view === "post" ? (
+        <NewPostOptions
+          showEditor={props.showEditor}
+          post={props.post}
+          setPost={props.setPost}
+        />
+      ) : (
+        <NewCollectionOptions />
+      )}
     </Container>
   );
 };
