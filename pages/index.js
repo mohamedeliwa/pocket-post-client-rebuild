@@ -18,7 +18,7 @@ const Home = (props) => {
   ) : !allPosts ? (
     <Spinner />
   ) : (
-    allPosts.map((post) => <PostCard postDetails={post} key={post._id} />)
+    allPosts.reverse().map((post) => <PostCard postDetails={post} key={post._id} />)
   );
 
   return (
