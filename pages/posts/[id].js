@@ -35,6 +35,7 @@ export async function getServerSideProps(context) {
   const res2 = await fetch(`http://localhost:3000/api/post`);
   const post = await res.json();
   const post2 = await res2.json();
+  // console.log(post);
   // Pass data to the page via props
   return { props: { post: {
     ...post,
@@ -43,7 +44,7 @@ export async function getServerSideProps(context) {
       avatar: post2.author.picture
     },
     coverImage: post2.coverImage,
-    content: post2.content
+    content: JSON.parse(post.content)
   } } };
 }
 

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import useSWR from "swr";
+import { AuthContext } from "../context/AuthContext";
 import {
   Container,
   Form,
@@ -9,6 +11,7 @@ import {
 } from "react-bootstrap";
 
 const NewPostOptions = (props) => {
+  const { user } = useContext(AuthContext);
   const [state, setState] = useState({
     title: "",
     excerpt: "",
@@ -16,6 +19,30 @@ const NewPostOptions = (props) => {
     series: "",
     tags: [],
   });
+
+  const fetcher = (url) => fetch(url).then((r) => r.json());
+  const { data: allCollections, error } = useSWR(
+    `http://localhost:5000/series?user_id=${user._id}`,
+    fetcher
+  );
+
+  const collectionOptions = error ? (
+    <option value="">Error Loading collections!</option>
+  ) : !allCollections ? (
+    <option value="">Loading...</option>
+  ) : (
+    allCollections.map((collection, index) => {
+      if (index === 0) {
+        return (
+          <>
+            <option value="">None</option>
+            <option key={collection._id} value={collection._id}>{collection.name}</option>
+          </>
+        );
+      }
+      return <option key={collection._id} value={collection._id}>{collection.name}</option>;
+    })
+  );
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -51,7 +78,7 @@ const NewPostOptions = (props) => {
     e.preventDefault();
     const tags = state.tags;
     const tagInput = document.querySelector("#post-tag");
-    tags.push(tagInput.value);
+    if (!tagInput.value.match(/^\s*$/g)) tags.push(tagInput.value.trim());
     setState({
       ...state,
       tags,
@@ -60,11 +87,27 @@ const NewPostOptions = (props) => {
     console.log(state);
   };
 
+  const removeTag = (e) => {
+    e.preventDefault();
+    const tags = state.tags.filter((tag) => tag + " x" !== e.target.innerText);
+    setState({
+      ...state,
+      tags,
+    });
+  };
+
   const postTags = state.tags.map((tag, index) => {
-    const tagVariant  = index % 2 == 0 ? "warning" : "info"; 
+    const tagVariant = index % 2 == 0 ? "warning" : "info";
     return (
       <>
-        <Badge variant={tagVariant} key={index}>{tag}</Badge>{" "}
+        <Badge
+          variant={tagVariant}
+          key={index}
+          onClick={removeTag}
+          style={{ cursor: "pointer" }}
+        >
+          {tag} x
+        </Badge>{" "}
       </>
     );
   });
@@ -114,10 +157,7 @@ const NewPostOptions = (props) => {
         <Form.Group controlId="post-series">
           <Form.Label>Select Collection</Form.Label>
           <Form.Control as="select" defaultValue="None" onChange={handleChange}>
-            <option value="">None</option>
-            <option>Collection1</option>
-            <option>Collection2</option>
-            <option>Collection3</option>
+            {collectionOptions}
           </Form.Control>
         </Form.Group>
 

@@ -54,6 +54,8 @@ export default class extends Component {
           title: this.props.post.title,
           coverImage: this.props.post.coverImage,
           series: this.props.post.series,
+          excerpt: this.props.post.excerpt,
+          tags: this.props.post.tags,
           content: data
         };
         const res = fetch("http://localhost:5000/posts", {

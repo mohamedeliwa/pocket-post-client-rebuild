@@ -10,8 +10,10 @@ const New = () => {
 
   const [post, setPost] = useState({
     title: "",
+    excerpt: "",
     coverImage: "",
     series: "",
+    tags: [],
     content: "hello world"
   });
   console.log("New: ", post);
