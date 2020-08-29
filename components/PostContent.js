@@ -156,29 +156,22 @@ const PostContent = ({ post }) => {
         {/* {ownerControls} */}
       </div>
       {/* Outputting the content of a post */}
-      <Output data={JSON.parse(post.content)} />
+      <Output data={post.content} />
       {/* Post tags */}
       <div className="badges-div">
         <br />
         <hr />
-        <Badge variant="warning">Javascript</Badge>{" "}
-        <Badge variant="info">HTML</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="warning">Javascript</Badge>{" "}
-        <Badge variant="info">HTML</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
-        <Badge variant="info">Nodjs</Badge>{" "}
-        <Badge variant="warning">ReactJS</Badge>{" "}
+        {post.tags.map((tag, index) => {
+          const tagVariant = index % 2 == 0 ? "warning" : "info";
+          console.log(post.tags);
+          return (
+            <span key={index}>
+              <Badge variant={tagVariant}>
+                {tag}
+              </Badge>{" "}
+            </span>
+          );
+        })}
       </div>
     </Container>
   );
