@@ -163,7 +163,6 @@ const PostContent = ({ post }) => {
         <hr />
         {post.tags.map((tag, index) => {
           const tagVariant = index % 2 == 0 ? "warning" : "info";
-          console.log(post.tags);
           return (
             <span key={index}>
               <Badge variant={tagVariant}>

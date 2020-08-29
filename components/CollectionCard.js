@@ -53,7 +53,7 @@ const CollectionCard = (props) => {
             {/* {ownerControls} */}
           </div>
           <br />
-          <Button onClick={props.fn}>View Collection</Button>
+          <Button onClick={props.fn} id={props.collection._id}>View Collection</Button>
         </div>
       </StyledCollectionCard>
     </Jumbotron>
