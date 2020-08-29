@@ -58,7 +58,7 @@ const Edit = styled(FiEdit)`
 const Delete = styled(MdDelete)`
   margin: 2px 4px;
   cursor: pointer;
-  color: #AB293B;
+  color: #ab293b;
 `;
 
 const PostContent = ({ post }) => {
@@ -114,7 +114,6 @@ const PostContent = ({ post }) => {
       <Delete />
     </>
   );
-
   return (
     <Container>
       <h1 className="mt-4">{post.title}</h1>
@@ -138,10 +137,14 @@ const PostContent = ({ post }) => {
 
       <hr />
 
-      <p>Posted on {post.updatedAt.slice(0,10)}</p>
+      <p>Posted on {post.updatedAt.slice(0, 10)}</p>
       <hr />
       {/* Post Cover Image */}
-      <img className="img-fluid rounded" src={post.coverImage} alt="" />
+      <img
+        className="img-fluid rounded"
+        src={`data:image/png;base64,${post.coverImage}`}
+        alt=""
+      />
 
       <hr />
       {/* Post Controlers */}
@@ -153,7 +156,7 @@ const PostContent = ({ post }) => {
         {/* {ownerControls} */}
       </div>
       {/* Outputting the content of a post */}
-      <Output data={post.content} />
+      <Output data={JSON.parse(post.content)} />
       {/* Post tags */}
       <div className="badges-div">
         <br />

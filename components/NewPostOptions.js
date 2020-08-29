@@ -62,7 +62,8 @@ const NewPostOptions = (props) => {
       case "post-cover-image":
         setState({
           ...state,
-          coverImage: e.target.value,
+          // coverImage: e.target.value,
+          coverImage:  e.target.files[0],
         });
         break;
       case "post-series":
