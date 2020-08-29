@@ -8,10 +8,10 @@ import useSWR from "swr";
 import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
 import { AuthContext } from "../../context/AuthContext";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const Settings = (props) => {
-  const router = useRouter()
+  const router = useRouter();
   const { user, setUser } = useContext(AuthContext);
   const [key, setKey] = useState("profile");
   const fetcher = (url) => fetch(url).then((r) => r.json());
@@ -19,6 +19,18 @@ const Settings = (props) => {
   // if (error)
   //   return <ErrorMsg msg="Failed to load! , please try again later." />;
   // if (!user) return <Spinner />;
+  const publicInfo = [
+    "firstName",
+    "lastName",
+    "avatar",
+    "caption",
+    "publicEmail",
+    "twitter",
+    "facebook",
+    "linkedin",
+    "github",
+  ];
+  const accountInfo = ["email", "password", "paybalEmail"];
   const updater = async (url, key, value) => {
     try {
       const body = {};
@@ -79,11 +91,46 @@ const Settings = (props) => {
               value={user.firstName}
               updater={updater}
             />
-            <SettingForm label="Last Name" inputType="text" value={user.lastName} />
+            <SettingForm
+              label="Last Name"
+              inputType="text"
+              value={user.lastName}
+              updater={updater}
+            />
             <SettingForm
               label="Caption"
               inputType="text"
               value={user.caption}
+              updater={updater}
+            />
+            <SettingForm
+              label="Public Email"
+              inputType="email"
+              value={user.publicEmail}
+              updater={updater}
+            />
+            <SettingForm
+              label="Twitter"
+              inputType="text"
+              value={user.twitter}
+              updater={updater}
+            />
+            <SettingForm
+              label="Facebook"
+              inputType="text"
+              value={user.facebook}
+              updater={updater}
+            />
+            <SettingForm
+              label="LinkedIn"
+              inputType="text"
+              value={user.linkedin}
+              updater={updater}
+            />
+            <SettingForm
+              label="GitHub"
+              inputType="text"
+              value={user.github}
               updater={updater}
             />
           </Container>
@@ -98,9 +145,15 @@ const Settings = (props) => {
               updater={updater}
             />
             <SettingForm
+              label="Paybal Email"
+              inputType="email"
+              value={user.paybalEmail}
+              updater={updater}
+            />
+            <SettingForm
               label="Password"
               inputType="password"
-              value="Jhon@123456"
+              placeholder="Enter your new Password!"
               updater={updater}
             />
           </Container>

@@ -17,8 +17,8 @@ const ConfirmButton = styled(Button)`
 const SettingForm = (props) => {
   const [state, setState] = useState({
     editting: false,
-    defaultValue: props.value,
-    value: props.value,
+    defaultValue: props.value ? props.value : "",
+    value: props.value ? props.value : "",
   });
 
   const activate = (e) => {
@@ -56,13 +56,40 @@ const SettingForm = (props) => {
         case "First Name":
           user = await props.updater(url, "firstName", state.value);
           break;
+        case "Last Name":
+          user = await props.updater(url, "lastName", state.value);
+          break;
         case "Caption":
           user = await props.updater(url, "caption", state.value);
-
+          break;
+        case "Public Email":
+          user = await props.updater(url, "publicEmail", state.value);
+          break;
+        case "Twitter":
+          user = await props.updater(url, "twitter", state.value);
+          break;
+        case "Facebook":
+          user = await props.updater(url, "facebook", state.value);
+          break;
+        case "LinkedIn":
+          user = await props.updater(url, "linkedin", state.value);
+          break;
+        case "GitHub":
+          user = await props.updater(url, "github", state.value);
           break;
         case "Email Address":
-          user = await props.updater(url, "email", state.value);
-
+          user = await props.updater(
+            "http://localhost:5000/email/update",
+            "email",
+            state.value
+          );
+          break;
+        case "Paybal Email":
+          user = await props.updater(
+            "http://localhost:5000/paybal/update",
+            "paybalEmail",
+            state.value
+          );
           break;
         case "Password":
           user = await props.updater(url, "password", state.value);
@@ -82,6 +109,7 @@ const SettingForm = (props) => {
             type={props.inputType}
             value={state.value}
             disabled={!state.editting}
+            placeholder={ props.placeholder || `Enter your ${props.label}..`}
             onChange={handleChange}
           />
         </Form.Group>
