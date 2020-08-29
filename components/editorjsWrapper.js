@@ -50,21 +50,26 @@ export default class extends Component {
     this.editor
       .save()
       .then((data) => {
-        const post = {
-          title: this.props.post.title,
-          coverImage: this.props.post.coverImage,
-          series: this.props.post.series,
-          excerpt: this.props.post.excerpt,
-          tags: this.props.post.tags,
-          content: data
-        };
+        const post = new FormData();
+        post.append("title", this.props.post.title);
+        post.append("coverImage", this.props.post.coverImage,);
+        post.append("series", this.props.post.series);
+        post.append("excerpt", this.props.post.excerpt);
+        post.append("tags", this.props.post.tags);
+        post.append("content", data);
+        // const post = {
+        //   title: this.props.post.title,
+        //   coverImage: this.props.post.coverImage,
+        //   series: this.props.post.series,
+        //   excerpt: this.props.post.excerpt,
+        //   tags: this.props.post.tags,
+        //   content: data,
+        // };
         const res = fetch("http://localhost:5000/posts", {
           method: "POST",
           credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(post),
+          // body: JSON.stringify(post),
+          body: post
         });
       })
       .catch((error) => {

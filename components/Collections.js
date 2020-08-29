@@ -8,7 +8,7 @@ const Collections = (props) => {
         e.preventDefault();
         state === "list" ? setState("one") : setState("list");
     }
-    const collections = props.collectionsList.reverse().map((collection) => {
+    const collections = props.collectionsList.map((collection) => {
       return <CollectionCard fn={handleChange} collection={collection} key={collection._id} />
     })
   return state === "list" ?  (

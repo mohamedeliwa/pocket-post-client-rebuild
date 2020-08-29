@@ -49,6 +49,8 @@ const AuthContextProvider = (props) => {
         const response = await fetch(url, { credentials: "include" });
         if (response.status === 200) {
           const user = await response.json();
+          // setting user avat url
+          user.avatar = `http://localhost:5000/users/${user._id}/avatar`;
           setState({
             isAuthenticated: true,
             user,
@@ -158,6 +160,8 @@ const AuthContextProvider = (props) => {
       console.log(error.message);
     }
   };
+
+ 
 
   return (
     <AuthContext.Provider value={{ ...state, signup, login, logout }}>

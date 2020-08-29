@@ -13,13 +13,13 @@ const Author = (props) => {
   const [key, setKey] = useState("allPosts");
 
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}`, fetcher);
+  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}&sortBy=createdAt:desc`, fetcher);
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
     <Spinner />
   ) : (
-    allPosts.reverse().map((post) => <PostCard postDetails={post} key={post._id} />)
+    allPosts.map((post) => <PostCard postDetails={post} key={post._id} />)
   );
 
   return (
@@ -56,8 +56,9 @@ export async function getServerSideProps(context) {
   // fetching user's public information
   const res = await fetch(`http://localhost:5000/users/profile/${id}`);
   const user = await res.json();
+  user.avatar = `http://localhost:5000/users/${id}/avatar`
   // fechting user's post collections
-  const res2 = await fetch(`http://localhost:5000/series?user_id=${id}`);
+  const res2 = await fetch(`http://localhost:5000/series?user_id=${id}&sortBy=createdAt:desc`);
   const collections = await res2.json();
   console.log(await collections);
   // Pass data to the page via props

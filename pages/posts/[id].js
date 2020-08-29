@@ -41,10 +41,12 @@ export async function getServerSideProps(context) {
     ...post,
     owner: {
       ...post.owner,
-      avatar: post2.author.picture
+      avatar: `http://localhost:5000/users/${post.owner._id}/avatar`
     },
-    coverImage: post2.coverImage,
+    // coverImage: post2.coverImage,
+    coverImage: post.coverImage,
     content: JSON.parse(post.content)
+    // content: post.content
   } } };
 }
 
