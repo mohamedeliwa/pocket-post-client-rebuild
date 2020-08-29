@@ -15,7 +15,8 @@ const PostCard = (props) => {
       <Card.Img
         variant="top"
         // src= {coverImage}
-        src="/blog/dynamic-routing/cover.jpg"
+        src={`data:image/png;base64,${coverImage}`}
+        // src="/blog/dynamic-routing/cover.jpg"
         alt="Card image cap"
       />
       <Card.Body>
