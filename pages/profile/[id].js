@@ -13,7 +13,7 @@ const Author = (props) => {
   const [key, setKey] = useState("allPosts");
 
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}&sortBy=createdAt:desc`, fetcher);
+  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}&limit=4&skip=0&sortBy=createdAt:desc`, fetcher);
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
