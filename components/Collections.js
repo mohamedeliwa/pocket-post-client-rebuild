@@ -4,8 +4,14 @@ import CollectionContent from "./CollectionContent";
 
 const Collections = (props) => {
     const [state, setState] = useState("list");
+    const [focusedCollection, setFocusedCollection] = useState({
+      id: ""
+    })
     const handleChange = (e) => {
         e.preventDefault();
+        setFocusedCollection({
+          id: e.target.id
+        })
         state === "list" ? setState("one") : setState("list");
     }
     const collections = props.collectionsList.map((collection) => {
@@ -16,7 +22,7 @@ const Collections = (props) => {
         {collections}
     </div>
   ) : (
-      <CollectionContent fn={handleChange}/>
+      <CollectionContent fn={handleChange} collection={focusedCollection}/>
   );
 };
 

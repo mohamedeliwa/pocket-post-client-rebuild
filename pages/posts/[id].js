@@ -32,10 +32,9 @@ export async function getServerSideProps(context) {
   const id = context.params.id;
   const res = await fetch(`http://localhost:5000/posts/${id}/public`);
   // temporary fetching test post info till end-point for post feching updated on the server
-  const res2 = await fetch(`http://localhost:3000/api/post`);
+  // const res2 = await fetch(`http://localhost:3000/api/post`);
   const post = await res.json();
-  const post2 = await res2.json();
-  // console.log(post);
+  // const post2 = await res2.json();
   // Pass data to the page via props
   return { props: { post: {
     ...post,
