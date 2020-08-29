@@ -12,8 +12,9 @@ import { useRouter } from "next/router";
 
 const Settings = (props) => {
   const router = useRouter();
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [key, setKey] = useState("profile");
+  const [avatar, setAvatar] = useState("");
   const fetcher = (url) => fetch(url).then((r) => r.json());
   // const { data: user, error } = useSWR("/api/authorInfo", fetcher);
   // if (error)
@@ -51,6 +52,36 @@ const Settings = (props) => {
     }
   };
 
+  const handleAvatarChange = (e) => {
+    e.preventDefault();
+    setAvatar(e.target.files[0]);
+  };
+
+  const updateAvatar = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+      const response = await fetch(
+        "http://localhost:5000/users/profile/avatar",
+        {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("profile picture updated successfully!");
+        router.reload();
+      } else {
+        throw new Error("updating profile picture failed!");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Container>
       <Head>
@@ -67,10 +98,10 @@ const Settings = (props) => {
           <br />
           <Container>
             <Container style={{ padding: "1rem" }}>
-              <form>
+              <form onSubmit={(e) => e.preventDefault()}>
                 <div className="form-group">
                   <label htmlFor="avatar">
-                    <Image src="/blog/authors/jj.jpeg" rounded />
+                    <Image src={user.avatar} rounded />
                   </label>
                   <input
                     type="file"
@@ -78,9 +109,14 @@ const Settings = (props) => {
                     id="avatar"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={handleAvatarChange}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={updateAvatar}
+                >
                   Upload
                 </button>
               </form>

@@ -56,6 +56,7 @@ export async function getServerSideProps(context) {
   // fetching user's public information
   const res = await fetch(`http://localhost:5000/users/profile/${id}`);
   const user = await res.json();
+  user.avatar = `http://localhost:5000/users/${id}/avatar`
   // fechting user's post collections
   const res2 = await fetch(`http://localhost:5000/series?user_id=${id}&sortBy=createdAt:desc`);
   const collections = await res2.json();

@@ -126,7 +126,7 @@ const PostContent = ({ post }) => {
           src={post.owner.avatar}
           rounded
         />
-        <Link href="/profile/[id]" as={`/profile/hello`}>
+        <Link href="/profile/[id]" as={`/profile/${post.owner._id}`}>
           <Figure.Caption
             style={{ color: "#17a2b8", cursor: "pointer" }}
             className="ml-3 mb-2"

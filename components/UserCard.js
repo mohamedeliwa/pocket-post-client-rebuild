@@ -51,7 +51,7 @@ const UserCard = (props) => {
         </div>
 
         <div className="user-img">
-          <Image src="/blog/authors/jj.jpeg" rounded />
+          <Image src={user.avatar} rounded />
         </div>
       </StyledUserCard>
     </Jumbotron>
