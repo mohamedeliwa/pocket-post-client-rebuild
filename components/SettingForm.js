@@ -47,18 +47,35 @@ const SettingForm = (props) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setState({
-      ...state,
-      editting: false,
-      defaultValue: state.value,
-    });
+    const url = "http://localhost:5000/users/profile";
+    try {
+      let user;
+      switch (props.label) {
+        case "First Name":
+          user = await props.updater(url, "firstName", state.value);
+          break;
+        case "Caption":
+          user = await props.updater(url, "caption", state.value);
+
+          break;
+        case "Email Address":
+          user = await props.updater(url, "email", state.value);
+
+          break;
+        case "Password":
+          user = await props.updater(url, "password", state.value);
+          break;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
     <Container style={{ padding: "1rem" }}>
-      <Form>
+      <Form onSubmit={(e) => e.preventDefault()}>
         <Form.Group>
           <Form.Label>{props.label}</Form.Label>
           <Form.Control

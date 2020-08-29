@@ -159,6 +159,8 @@ const AuthContextProvider = (props) => {
     }
   };
 
+ 
+
   return (
     <AuthContext.Provider value={{ ...state, signup, login, logout }}>
       {props.children}

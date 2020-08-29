@@ -8,15 +8,36 @@ import useSWR from "swr";
 import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
 import { AuthContext } from "../../context/AuthContext";
+import { useRouter } from 'next/router'
 
 const Settings = (props) => {
-  const { user } = useContext(AuthContext);
+  const router = useRouter()
+  const { user, setUser } = useContext(AuthContext);
   const [key, setKey] = useState("profile");
   const fetcher = (url) => fetch(url).then((r) => r.json());
   // const { data: user, error } = useSWR("/api/authorInfo", fetcher);
   // if (error)
   //   return <ErrorMsg msg="Failed to load! , please try again later." />;
   // if (!user) return <Spinner />;
+  const updater = async (url, key, value) => {
+    try {
+      const body = {};
+      body[key] = value;
+      const res = await fetch(url, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const user = await res.json();
+      router.reload();
+      return user;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <Container>
@@ -56,12 +77,14 @@ const Settings = (props) => {
               label="First Name"
               inputType="text"
               value={user.firstName}
+              updater={updater}
             />
             <SettingForm label="Last Name" inputType="text" value={user.lastName} />
             <SettingForm
               label="Caption"
               inputType="text"
               value={user.caption}
+              updater={updater}
             />
           </Container>
         </Tab>
@@ -72,11 +95,13 @@ const Settings = (props) => {
               label="Email Address"
               inputType="email"
               value={user.email}
+              updater={updater}
             />
             <SettingForm
               label="Password"
               inputType="password"
               value="Jhon@123456"
+              updater={updater}
             />
           </Container>
         </Tab>
