@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Head from "next/head";
 import { Button } from "react-bootstrap";
+import Link from "next/link";
 
 export default class extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class extends Component {
       .then((data) => {
         const post = new FormData();
         post.append("title", this.props.post.title);
-        post.append("coverImage", this.props.post.coverImage,);
+        post.append("coverImage", this.props.post.coverImage);
         post.append("series", this.props.post.series);
         post.append("excerpt", this.props.post.excerpt);
         post.append("tags", JSON.stringify(this.props.post.tags));
@@ -65,12 +66,14 @@ export default class extends Component {
         //   tags: this.props.post.tags,
         //   content: data,
         // };
-        const res = fetch("http://localhost:5000/posts", {
+        fetch("http://localhost:5000/posts", {
           method: "POST",
           credentials: "include",
           // body: JSON.stringify(post),
-          body: post
-        });
+          body: post,
+        })
+          .then((response) => response.json())
+          .then((post) => location.assign(`/posts/${post._id}`));
       })
       .catch((error) => {
         console.log("Saving failed: ", error);

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import fetch from "isomorphic-unfetch";
 import { Container, Form, Button } from "react-bootstrap";
+import { useRouter } from 'next/router';
 
 const NewCollectionOptions = () => {
+  const router = useRouter();
   const [state, setState] = useState({
     name: "",
     coverImage: "",
@@ -42,6 +44,8 @@ const NewCollectionOptions = () => {
       if (response.status === 201) {
         console.log("collection created successfully!");
         const collection = await response.json();
+        alert("Collection created successfully")
+        router.reload();
         console.log(collection);
       } else {
         throw new Error("collection creation failed!");
