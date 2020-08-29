@@ -41,7 +41,7 @@ const CollectionCard = (props) => {
     <Jumbotron fluid className="bg-white">
       <StyledCollectionCard>
         <div className="user-img">
-          <Image src="https://via.placeholder.com/200" rounded />
+          <Image src={`data:image/png;base64,${props.collection.coverImage}`} rounded />
         </div>
 
         <div className="collection-info">
