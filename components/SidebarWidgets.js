@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Container,
   Card,
@@ -8,17 +9,21 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import CollectionWidget from "./CollectionWidget";
 
 const SidebarWidgets = (props) => {
+  const router = useRouter();
   const [searchTerm, setSerachTerm] = useState("");
   const handleSearchTerm = (e) => {
-    e.preventDefault()
-    setSerachTerm(e.target.value)
-  }
+    e.preventDefault();
+    setSerachTerm(e.target.value);
+  };
   const searchGoogle = (e) => {
     e.preventDefault();
     window.open(
-      `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}&sitesearch=www.LearnCpp.com`,
+      `https://www.google.com/search?q=${encodeURIComponent(
+        searchTerm
+      )}&sitesearch=www.LearnCpp.com`,
       "_blank" // <- This is what makes it open in a new window.
     );
   };
@@ -51,6 +56,9 @@ const SidebarWidgets = (props) => {
         </Card.Body>
       </Card>
 
+      {router.pathname === '/posts/[id]' ? <CollectionWidget postId={router.query.id}/> : null}
+      
+{/* 
       <Card className=" my-4">
         <Card.Header>Categories</Card.Header>
         <Card.Body>
@@ -92,6 +100,7 @@ const SidebarWidgets = (props) => {
           easy to use, and feature the new Bootstrap 4 card containers!
         </Card.Body>
       </Card>
+     */}
     </Container>
   );
 };
