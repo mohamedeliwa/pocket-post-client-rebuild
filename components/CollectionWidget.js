@@ -15,7 +15,7 @@ const CollectionWidget = (props) => {
 
   const collectionFetcher = (url) => fetch(url).then((r) => r.json());
   const { data: collectionPosts, error: postsError } = useSWR(
-    () => `http://localhost:5000/series/${post.series}`,
+    () => post.series ? `http://localhost:5000/series/${post.series}` : null,
     // When passing a function, SWR will use the return
     // value as `key`. If the function throws or returns
     // falsy, SWR will know that some dependencies are not
@@ -23,8 +23,7 @@ const CollectionWidget = (props) => {
     // isn't loaded.
     collectionFetcher
   );
-  console.log(collectionPosts);
-
+  
   const posts = postsError ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !collectionPosts ? (
@@ -45,14 +44,14 @@ const CollectionWidget = (props) => {
     })
   );
 
-  return (
+  return collectionPosts ? (
     <Card className=" my-4">
       <Card.Header>All collection's posts</Card.Header>
       <Card.Body className="p-0">
         <div className="list-group-flush">{posts}</div>
       </Card.Body>
     </Card>
-  );
+  ) : null;
 };
 
 export default CollectionWidget;

@@ -54,7 +54,9 @@ export default class extends Component {
         const post = new FormData();
         post.append("title", this.props.post.title);
         post.append("coverImage", this.props.post.coverImage);
-        post.append("series", this.props.post.series);
+        if (this.props.post.series) {
+          post.append("series", this.props.post.series);
+        }
         post.append("excerpt", this.props.post.excerpt);
         post.append("tags", JSON.stringify(this.props.post.tags));
         post.append("content", JSON.stringify(data));
