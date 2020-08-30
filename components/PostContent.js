@@ -144,6 +144,7 @@ const PostContent = ({ post }) => {
         className="img-fluid rounded"
         src={`data:image/png;base64,${post.coverImage}`}
         alt=""
+        style={{ height: /*'25rem'*/"400px" ,  width: /*'50rem'*/ /*"800px"*/ /*"45.5rem"*/ "728px"}}
       />
 
       <hr />
