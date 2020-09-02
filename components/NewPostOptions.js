@@ -125,7 +125,7 @@ const NewPostOptions = (props) => {
   return (
     <Container>
       <hr />
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <label htmlFor="post-title">Post Title*</label>
           <input
@@ -176,7 +176,7 @@ const NewPostOptions = (props) => {
 
         <Form.Group controlId="post-tags">{postTags}</Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" onClick={handleSubmit}>
           Continue
         </Button>
       </Form>
