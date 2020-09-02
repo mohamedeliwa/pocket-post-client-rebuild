@@ -114,7 +114,7 @@ export default (props) => {
               <img src="/profile.png"  style={{width: "30px"}} />
             </Dropdown.Toggle> */}
           <StyledToggle /*className="border-0 rounded bg-white"*/>
-            <img src={user.avatar || "/profile.png"} className="rounded" style={{ width: "30px" }} />
+            <img  src={`http://localhost:5000/users/${user._id}/avatar`}/*src={user.avatar}*/ className="rounded" style={{ width: "30px" }} />
           </StyledToggle>
 
           <Dropdown.Menu>
