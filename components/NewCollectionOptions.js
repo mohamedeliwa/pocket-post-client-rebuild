@@ -1,12 +1,13 @@
 import { useState } from "react";
 import fetch from "isomorphic-unfetch";
 import { Container, Form, Button } from "react-bootstrap";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const NewCollectionOptions = () => {
   const router = useRouter();
   const [state, setState] = useState({
     name: "",
+    description: "",
     coverImage: "",
   });
   const handleChange = (e) => {
@@ -16,6 +17,13 @@ const NewCollectionOptions = () => {
         setState({
           ...state,
           name: e.target.value,
+        });
+        break;
+
+      case "collection-description":
+        setState({
+          ...state,
+          description: e.target.value,
         });
         break;
 
@@ -35,7 +43,7 @@ const NewCollectionOptions = () => {
       const formData = new FormData();
       formData.append("name", state.name);
       formData.append("coverImage", state.coverImage);
-      formData.append("description", "hello description");
+      formData.append("description", state.description);
       const response = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -44,7 +52,7 @@ const NewCollectionOptions = () => {
       if (response.status === 201) {
         console.log("collection created successfully!");
         const collection = await response.json();
-        alert("Collection created successfully")
+        alert("Collection created successfully");
         router.reload();
         console.log(collection);
       } else {
@@ -65,6 +73,19 @@ const NewCollectionOptions = () => {
             className="form-control"
             id="collection-name"
             placeholder="Enter collection name..."
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="collection-description">
+            Collection Description*
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="collection-description"
+            placeholder="Enter collection description..."
             onChange={handleChange}
           />
         </div>
