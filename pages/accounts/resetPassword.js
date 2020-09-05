@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Container, Form, Button } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
 
-const Login = styled(Container)`
+const ResetPassword = styled(Container)`
   //background-color: #eee;
   min-height: 70vh;
   padding: 1rem;
@@ -41,11 +41,12 @@ const FormHeader = styled.h1`
   margin: 22px auto 50px;
 `;
 
-const login = () => {
+const resetPassword = () => {
   const router = useRouter();
   const { isAuthenticated } = useContext(AuthContext);
   const [state, setState] = useState({
-    email: "random@random.com",
+    email: "",
+    newPassword: "",
   });
 
   useEffect(() => {
@@ -54,47 +55,114 @@ const login = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    setState({
-      ...state,
-      email: e.target.value,
-    });
+    switch (e.target.type) {
+      case "email":
+        setState({
+          ...state,
+          email: e.target.value,
+        });
+        break;
+      case "password":
+        setState({
+          ...state,
+          newPassword: e.target.value,
+        });
+        break;
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleResetRquestSubmit = async (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(state));
-
     const response = await fetch("http://localhost:5000/password/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(state),
+      body: JSON.stringify({
+        email: state.email,
+      }),
     });
+
+    if (response.status === 200) {
+      alert("Request Sent Successfully, Please check your email!");
+      setState({
+        ...state,
+        email: "",
+      });
+    } else {
+      alert("Something went wrong, Please try again later!");
+    }
   };
 
+  const handleNewPasswordSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `http://localhost:5000/password/reset/${router.query.token}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: state.newPassword,
+        }),
+      }
+    );
+    if (response.status === 200) {
+      alert("Password Updated successfully!");
+      router.push("/accounts/login");
+    } else {
+      alert("Something went wrong, Please try again!");
+    }
+  };
+
+  const requestForm = (
+    <StyledForm className="bg-light" onSubmit={handleResetRquestSubmit}>
+      <FormHeader>Pocket-Post</FormHeader>
+
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label>Reset Password</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter your email..."
+          onChange={handleChange}
+          value={state.email}
+          required
+        />
+      </Form.Group>
+
+      <Button variant="primary" type="submit" block>
+        Send Request
+      </Button>
+    </StyledForm>
+  );
+
+  const newPasswordForm = (
+    <StyledForm className="bg-light" onSubmit={handleNewPasswordSubmit}>
+      <FormHeader>Pocket-Post</FormHeader>
+
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label>Enter Your New Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Enter your new passwprd..."
+          onChange={handleChange}
+          value={state.newPassword}
+          required
+        />
+      </Form.Group>
+
+      <Button variant="primary" type="submit" block>
+        Send Request
+      </Button>
+    </StyledForm>
+  );
+
   return (
-    <Login>
-      <StyledForm className="bg-light" onSubmit={handleSubmit}>
-        <FormHeader>Pocket-Post</FormHeader>
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Reset Password</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter your email..."
-            onChange={handleChange}
-            value={state.email}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" block>
-          Send Request
-        </Button>
-      </StyledForm>
-    </Login>
+    <ResetPassword>
+      {router.query.token ? newPasswordForm : requestForm}
+    </ResetPassword>
   );
 };
 
-export default login;
+export default resetPassword;
