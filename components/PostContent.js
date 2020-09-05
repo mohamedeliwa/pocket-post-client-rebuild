@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import { AuthContext } from "../context/AuthContext";
 import { Container, Figure, Badge } from "react-bootstrap";
 import {
   MdBookmark,
@@ -52,6 +54,7 @@ const Report = styled(TiFlag)`
 `;
 
 const Edit = styled(FiEdit)`
+  font-size: 1.55rem;
   margin: 2px 4px;
   cursor: pointer;
 `;
@@ -62,22 +65,95 @@ const Delete = styled(MdDelete)`
 `;
 
 const PostContent = ({ post }) => {
+  const router = useRouter();
+  const { user, isAuthenticated } = useContext(AuthContext);
+  console.log(user);
+  // console.log(post);
   const [hearted, setHearted] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [reported, setReported] = useState(false);
-  const hearting = (e) => {
+
+  useEffect(() => {
+    setHearted(
+      isAuthenticated && user.likedPosts.includes(post._id) ? true : false
+    );
+    setBookmarked(
+      isAuthenticated && user.bookmarkedPosts.includes(post._id) ? true : false
+    );
+    setReported(
+      isAuthenticated && user.reportedPosts.includes(post._id) ? true : false
+    );
+  }, [isAuthenticated]);
+
+  const hearting = async (e) => {
     e.preventDefault();
-    setHearted(!hearted);
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/like/post/${post._id}`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+        });
+        if (response.status === 200) {
+          setHearted(!hearted);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  const bookmarking = (e) => {
+  const bookmarking = async (e) => {
     e.preventDefault();
-    setBookmarked(!bookmarked);
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/bookmark/post/${post._id}`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+        });
+        if (response.status === 200) {
+          setBookmarked(!bookmarked);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  const reporting = (e) => {
+  const reporting = async (e) => {
     e.preventDefault();
-    setReported(!reported);
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/report/post/`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reportedPostId: post._id,
+            issue: "Something",
+            issueDetails: "reported"
+          }),
+        });
+        if (response.status === 200) {
+          setReported(!reported);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const readerControls = (
@@ -93,7 +169,7 @@ const PostContent = ({ post }) => {
           className=""
           style={{ fontSize: "19px", margin: "0px 0px 0px 2px" }}
         >
-          55
+          {post.likesCount}
         </span>
       </Badge>
       <EmptyBookmark
@@ -110,8 +186,21 @@ const PostContent = ({ post }) => {
 
   const ownerControls = (
     <>
-      <Edit />
       <Delete />
+      <Edit />
+      <Badge
+        className="bg-white text-secondary"
+        variant="light"
+        style={{ margin: "2px 8px", padding: 0 }}
+      >
+        <FullHeart hearted={"true"} style={{ cursor: "default" }} />
+        <span
+          className=""
+          style={{ fontSize: "19px", margin: "0px 0px 0px 2px" }}
+        >
+          {post.likesCount}
+        </span>
+      </Badge>
     </>
   );
   return (
@@ -144,7 +233,10 @@ const PostContent = ({ post }) => {
         className="img-fluid rounded"
         src={`data:image/png;base64,${post.coverImage}`}
         alt=""
-        style={{ height: /*'25rem'*/"400px" ,  width: /*'50rem'*/ /*"800px"*/ /*"45.5rem"*/ "728px"}}
+        style={{
+          height: /*'25rem'*/ "400px",
+          width: /*'50rem'*/ /*"800px"*/ /*"45.5rem"*/ "728px",
+        }}
       />
 
       <hr />
@@ -153,8 +245,7 @@ const PostContent = ({ post }) => {
         className=" d-flex justify-content-end align-items-end text-secondary"
         style={{ fontSize: "26px" }}
       >
-        {readerControls}
-        {/* {ownerControls} */}
+        {post.owner._id === user._id ? ownerControls : readerControls}
       </div>
       {/* Outputting the content of a post */}
       <Output data={post.content} />
@@ -166,9 +257,7 @@ const PostContent = ({ post }) => {
           const tagVariant = index % 2 == 0 ? "warning" : "info";
           return (
             <span key={index}>
-              <Badge variant={tagVariant}>
-                {tag}
-              </Badge>{" "}
+              <Badge variant={tagVariant}>{tag}</Badge>{" "}
             </span>
           );
         })}

@@ -1,10 +1,6 @@
-import { useState } from "react";
-import {
-  Container,
-  Jumbotron,
-  Image,
-  Badge,
-} from "react-bootstrap";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import styled from "styled-components";
 
@@ -16,14 +12,14 @@ const StyledUserCard = styled(Container)`
 `;
 
 const Report = styled.span`
-   margin: 0px 0px 0px 15px;
-   cursor: pointer;
+  margin: 0px 0px 0px 15px;
+  cursor: pointer;
   color: ${(props) => (props.reported === "true" ? "#AB293B" : "#212529")};
 `;
 
-const UserCard = (props) => {
+const UserCard = ({ user }) => {
+  const { user: currentUser } = useContext(AuthContext);
   const [reported, setReported] = useState(false);
-  const [user, setUser] = useState(props.user);
   const reporting = (e) => {
     e.preventDefault();
     setReported(!reported);
@@ -34,19 +30,28 @@ const UserCard = (props) => {
       <StyledUserCard>
         <div className="user-info">
           <h1>{`${user.firstName} ${user.lastName}`}</h1>
-          <p>
-            {user.caption}
-          </p>
+          <p>{user.caption}</p>
           <div>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-success" variant="light">{user.postsCount}</Badge>Posts
+              <Badge className="text-success" variant="light">
+                {user.postsCount}
+              </Badge>
+              Posts
             </span>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-primary" variant="light">{user.likesCount}</Badge>likes
+              <Badge className="text-primary" variant="light">
+                {user.likesCount}
+              </Badge>
+              likes
             </span>
-            <Report reported={reported ? "true" : "false"} onClick={reporting} >
-              {reported ? "Reported" : "report"} <TiFlag />
-            </Report>
+            {user._id === currentUser._id ? null : (
+              <Report
+                reported={reported ? "true" : "false"}
+                onClick={reporting}
+              >
+                {reported ? "Reported" : "report"} <TiFlag />
+              </Report>
+            )}
           </div>
         </div>
 
