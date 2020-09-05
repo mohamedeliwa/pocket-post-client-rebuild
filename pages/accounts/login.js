@@ -74,7 +74,11 @@ const login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(credentials);
+    const rememberMe = document.querySelector("#rememberMe");
+    login({
+      ...credentials,
+      rememberMe: rememberMe.checked,
+    });
   };
 
   return (
@@ -104,11 +108,11 @@ const login = () => {
           Log In
         </Button>
       </StyledForm>
-      
+
       <Form.Group
         className="bg-light text-dark p-2"
         style={{ border: "1px solid #eee" }}
-        controlId="formBasicCheckbox"
+        controlId="rememberMe"
       >
         <Form.Check type="checkbox" label="remember me" />
       </Form.Group>
