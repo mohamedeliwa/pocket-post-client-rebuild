@@ -76,7 +76,9 @@ const AccountSettings = () => {
         // const user = await res.json();
         // return user;
       } else {
-        throw new Error("Updating Process Failed!");
+        const resJSON = await res.json();
+        // throw new Error("Updating Process Failed!");
+        throw new Error(resJSON.error);
       }
     } catch (error) {
       console.log(error.message);
