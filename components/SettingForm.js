@@ -80,7 +80,7 @@ const SettingForm = (props) => {
         case "Email Address":
           user = await props.updater(
             "http://localhost:5000/email/update",
-            "email",
+            "newEmail",
             state.value
           );
           break;
@@ -92,7 +92,11 @@ const SettingForm = (props) => {
           );
           break;
         case "Password":
-          user = await props.updater(url, "password", state.value);
+          user = await props.updater(
+            "http://localhost:5000/password/update",
+            "newPassword",
+            state.value
+          );
           break;
       }
     } catch (error) {
@@ -109,7 +113,7 @@ const SettingForm = (props) => {
             type={props.inputType}
             value={state.value}
             disabled={!state.editting}
-            placeholder={ props.placeholder || `Enter your ${props.label}..`}
+            placeholder={props.placeholder || `Enter your ${props.label}..`}
             onChange={handleChange}
           />
         </Form.Group>
