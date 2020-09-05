@@ -68,13 +68,13 @@ const AccountSettings = () => {
       });
       if (res.status === 200) {
         console.log(res);
-        alert("A confirmation Email sent to your email address");
+        alert("A Confirmation Email sent to your email address");
         router.reload();
 
         // const user = await res.json();
         // return user;
       }else {
-        throw new Error("Updating Email Failed!");
+        throw new Error("Updating Process Failed!");
       }
     } catch (error) {
       console.log(error.message);
