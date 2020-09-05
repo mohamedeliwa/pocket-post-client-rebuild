@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Form, Button } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
+import Link from "next/link";
 
 const Login = styled(Container)`
   //background-color: #eee;
@@ -103,7 +104,7 @@ const login = () => {
           Log In
         </Button>
       </StyledForm>
-
+      
       <Form.Group
         className="bg-light text-dark p-2"
         style={{ border: "1px solid #eee" }}
@@ -111,6 +112,9 @@ const login = () => {
       >
         <Form.Check type="checkbox" label="remember me" />
       </Form.Group>
+      <Link href="/accounts/resetPassword">
+        <a>Reset Password</a>
+      </Link>
     </Login>
   );
 };
