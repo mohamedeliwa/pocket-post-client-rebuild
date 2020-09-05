@@ -45,8 +45,7 @@ const login = () => {
   const router = useRouter();
   const { isAuthenticated } = useContext(AuthContext);
   const [state, setState] = useState({
-    email: "",
-    // email: "random@random.com",
+    email: "random@random.com",
   });
 
   useEffect(() => {
@@ -55,16 +54,23 @@ const login = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-        setState({
-          ...state,
-          email: e.target.value,
-        });
+    setState({
+      ...state,
+      email: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(state);
-    // login(state);
+    console.log(JSON.stringify(state));
+
+    const response = await fetch("http://localhost:5000/password/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    });
   };
 
   return (
@@ -79,6 +85,7 @@ const login = () => {
             placeholder="Enter your email..."
             onChange={handleChange}
             value={state.email}
+            required
           />
         </Form.Group>
 
