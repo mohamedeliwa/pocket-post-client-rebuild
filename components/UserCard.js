@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import { AuthContext } from "../context/AuthContext";
 import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
@@ -18,11 +19,43 @@ const Report = styled.span`
 `;
 
 const UserCard = ({ user }) => {
-  const { user: currentUser } = useContext(AuthContext);
+  const router = useRouter();
+  const { user: currentUser, isAuthenticated } = useContext(AuthContext);
   const [reported, setReported] = useState(false);
-  const reporting = (e) => {
+  useEffect(() => {
+    setReported(
+      isAuthenticated && currentUser.reportedUsers.includes(user._id)
+        ? true
+        : false
+    );
+  }, [isAuthenticated]);
+  const reporting = async (e) => {
     e.preventDefault();
-    setReported(!reported);
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/report/user/`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reportedUserId: user._id,
+            issue: "Something",
+            issueDetails: "reported",
+          }),
+        });
+        if (response.status === 200) {
+          setReported(!reported);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
