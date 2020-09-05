@@ -67,17 +67,21 @@ const AccountSettings = () => {
         body: JSON.stringify(body),
       });
       if (res.status === 200) {
-        console.log(res);
-        alert("A Confirmation Email sent to your email address");
+        if (key !== "newPassword") {
+          alert("A Confirmation Email sent to your email address");
+        } else {
+          alert("Password changed successfully!");
+        }
         router.reload();
-
         // const user = await res.json();
         // return user;
-      }else {
+      } else {
         throw new Error("Updating Process Failed!");
       }
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
+      router.reload();
     }
   };
   return (
