@@ -121,6 +121,7 @@ const AuthContextProvider = (props) => {
         body: JSON.stringify({
           email: credentials.email,
           password: credentials.password,
+          rememberMe: credentials.rememberMe,
         }),
       });
 
@@ -160,8 +161,6 @@ const AuthContextProvider = (props) => {
       console.log(error.message);
     }
   };
-
- 
 
   return (
     <AuthContext.Provider value={{ ...state, signup, login, logout }}>
