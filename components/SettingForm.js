@@ -80,7 +80,7 @@ const SettingForm = (props) => {
         case "Email Address":
           user = await props.updater(
             "http://localhost:5000/email/update",
-            "email",
+            "newEmail",
             state.value
           );
           break;

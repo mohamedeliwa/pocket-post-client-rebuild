@@ -9,13 +9,15 @@ import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
+import AccountSettings from "../../components/AccountSettings";
 
 const Settings = (props) => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
-  const [key, setKey] = useState("profile");
+  // const [key, setKey] = useState("profile");
+  const [key, setKey] = useState("account");
   const [avatar, setAvatar] = useState("");
-  const fetcher = (url) => fetch(url).then((r) => r.json());
+  // const fetcher = (url) => fetch(url).then((r) => r.json());
   // const { data: user, error } = useSWR("/api/authorInfo", fetcher);
   // if (error)
   //   return <ErrorMsg msg="Failed to load! , please try again later." />;
@@ -173,7 +175,7 @@ const Settings = (props) => {
         </Tab>
         <Tab eventKey="account" title="Account">
           <br />
-          <Container>
+          {/* <Container>
             <SettingForm
               label="Email Address"
               inputType="email"
@@ -192,7 +194,8 @@ const Settings = (props) => {
               placeholder="Enter your new Password!"
               updater={updater}
             />
-          </Container>
+          </Container> */}
+          <AccountSettings />
         </Tab>
       </Tabs>
     </Container>
