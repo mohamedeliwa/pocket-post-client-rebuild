@@ -1,10 +1,7 @@
-import { useState } from "react";
-import {
-  Container,
-  Jumbotron,
-  Image,
-  Badge,
-} from "react-bootstrap";
+import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { AuthContext } from "../context/AuthContext";
+import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import styled from "styled-components";
 
@@ -16,17 +13,49 @@ const StyledUserCard = styled(Container)`
 `;
 
 const Report = styled.span`
-   margin: 0px 0px 0px 15px;
-   cursor: pointer;
+  margin: 0px 0px 0px 15px;
+  cursor: pointer;
   color: ${(props) => (props.reported === "true" ? "#AB293B" : "#212529")};
 `;
 
-const UserCard = (props) => {
+const UserCard = ({ user }) => {
+  const router = useRouter();
+  const { user: currentUser, isAuthenticated } = useContext(AuthContext);
   const [reported, setReported] = useState(false);
-  const [user, setUser] = useState(props.user);
-  const reporting = (e) => {
+  useEffect(() => {
+    setReported(
+      isAuthenticated && currentUser.reportedUsers.includes(user._id)
+        ? true
+        : false
+    );
+  }, [isAuthenticated]);
+  const reporting = async (e) => {
     e.preventDefault();
-    setReported(!reported);
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/report/user/`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reportedUserId: user._id,
+            issue: "Something",
+            issueDetails: "reported",
+          }),
+        });
+        if (response.status === 200) {
+          setReported(!reported);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -34,19 +63,28 @@ const UserCard = (props) => {
       <StyledUserCard>
         <div className="user-info">
           <h1>{`${user.firstName} ${user.lastName}`}</h1>
-          <p>
-            {user.caption}
-          </p>
+          <p>{user.caption}</p>
           <div>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-success" variant="light">{user.postsCount}</Badge>Posts
+              <Badge className="text-success" variant="light">
+                {user.postsCount}
+              </Badge>
+              Posts
             </span>
             <span style={{ margin: "0px 4px" }}>
-              <Badge className="text-primary" variant="light">{user.likesCount}</Badge>likes
+              <Badge className="text-primary" variant="light">
+                {user.likesCount}
+              </Badge>
+              likes
             </span>
-            <Report reported={reported ? "true" : "false"} onClick={reporting} >
-              {reported ? "Reported" : "report"} <TiFlag />
-            </Report>
+            {user._id === currentUser._id ? null : (
+              <Report
+                reported={reported ? "true" : "false"}
+                onClick={reporting}
+              >
+                {reported ? "Reported" : "report"} <TiFlag />
+              </Report>
+            )}
           </div>
         </div>
 
