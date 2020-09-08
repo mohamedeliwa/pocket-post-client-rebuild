@@ -167,6 +167,8 @@ const PostContent = ({ post }) => {
       if(response.status === 200){
         alert("post deleted successfully!");
         router.push("/");
+      }else{
+        alert("deleting post failed, try again!");
       }
     } catch (error) {
       console.log(error.message);

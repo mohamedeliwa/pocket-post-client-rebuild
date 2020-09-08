@@ -15,6 +15,24 @@ const StyledCollectionCard = styled(Container)`
 const CollectionCard = (props) => {
   const { user, isAuthenticated } = useContext(AuthContext);
 
+  const deleting = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:5000/series/${props.collection._id}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if(response.status === 200){
+        alert("series deleted successfully!");
+        router.push("/");
+      }else{
+        alert("deleting series failed, try again!");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   
   const readerControls = (
     <>
@@ -38,6 +56,7 @@ const CollectionCard = (props) => {
           fontSize: "20px",
           cursor: "pointer",
         }}
+        onClick={deleting}
       />
     </>
   );
