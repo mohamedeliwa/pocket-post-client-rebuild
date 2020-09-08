@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { AuthContext } from "../context/AuthContext";
 import { Container, Badge, Image, Jumbotron, Button } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import { MdDelete } from "react-icons/md";
 import styled from "styled-components";
+
 const StyledCollectionCard = styled(Container)`
   //background-color: lightyellow;
   display: flex;
@@ -12,8 +14,24 @@ const StyledCollectionCard = styled(Container)`
   flex-wrap: wrap-reverse;
 `;
 
+const Report = styled.span`
+  margin: 0px 0px 0px 15px;
+  cursor: pointer;
+  color: ${(props) => (props.reported === "true" ? "#AB293B" : "#212529")};
+`;
+
 const CollectionCard = (props) => {
+  const router = useRouter();
   const { user, isAuthenticated } = useContext(AuthContext);
+  const [reported, setReported] = useState(false);
+
+  useEffect(() => {
+    setReported(
+      isAuthenticated && user.reportedSerieses.includes(props.collection._id)
+        ? true
+        : false
+    );
+  }, [isAuthenticated]);
 
   const deleting = async (e) => {
     e.preventDefault();
@@ -23,17 +41,46 @@ const CollectionCard = (props) => {
         method: "DELETE",
         credentials: "include",
       });
-      if(response.status === 200){
+      if (response.status === 200) {
         alert("series deleted successfully!");
         router.push("/");
-      }else{
+      } else {
         alert("deleting series failed, try again!");
       }
     } catch (error) {
       console.log(error.message);
     }
   };
-  
+
+  const reporting = async (e) => {
+    e.preventDefault();
+    try {
+      if (isAuthenticated) {
+        const url = `http://localhost:5000/report/series/`;
+        const response = await fetch(url, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reportedSeriestId: props.collection._id,
+            issue: "Something",
+            issueDetails: "reported",
+          }),
+        });
+        if (response.status === 200) {
+          setReported(!reported);
+          router.reload();
+        }
+      } else {
+        alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const readerControls = (
     <>
       <span style={{ margin: "0px 4px" }}>
@@ -42,9 +89,9 @@ const CollectionCard = (props) => {
       <span style={{ margin: "0px 4px" }}>
         <Badge variant="light">{props.collection.likesCount}</Badge>likes
       </span>
-      <span style={{ margin: "0px 0px 0px 15px", cursor: "pointer" }}>
-        report <TiFlag />
-      </span>
+      <Report reported={reported ? "true" : "false"} onClick={reporting}>
+        {reported ? "Reported" : "report"} <TiFlag />
+      </Report>
     </>
   );
   const ownerControls = (
