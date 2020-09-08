@@ -141,7 +141,7 @@ const PostContent = ({ post }) => {
           body: JSON.stringify({
             reportedPostId: post._id,
             issue: "Something",
-            issueDetails: "reported"
+            issueDetails: "reported",
           }),
         });
         if (response.status === 200) {
@@ -150,6 +150,23 @@ const PostContent = ({ post }) => {
         }
       } else {
         alert("You should login first");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const deleting = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:5000/posts/${post._id}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if(response.status === 200){
+        alert("post deleted successfully!");
+        router.push("/");
       }
     } catch (error) {
       console.log(error.message);
@@ -186,7 +203,7 @@ const PostContent = ({ post }) => {
 
   const ownerControls = (
     <>
-      <Delete />
+      <Delete onClick={deleting} />
       <Edit />
       <Badge
         className="bg-white text-secondary"

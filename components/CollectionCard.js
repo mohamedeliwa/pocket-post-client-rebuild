@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Container, Badge, Image, Jumbotron, Button } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import { MdDelete } from "react-icons/md";
@@ -12,6 +13,9 @@ const StyledCollectionCard = styled(Container)`
 `;
 
 const CollectionCard = (props) => {
+  const { user, isAuthenticated } = useContext(AuthContext);
+
+  
   const readerControls = (
     <>
       <span style={{ margin: "0px 4px" }}>
@@ -41,19 +45,24 @@ const CollectionCard = (props) => {
     <Jumbotron fluid className="bg-white">
       <StyledCollectionCard>
         <div className="user-img">
-          <Image src={`data:image/png;base64,${props.collection.coverImage}`} rounded />
+          <Image
+            src={`data:image/png;base64,${props.collection.coverImage}`}
+            rounded
+          />
         </div>
 
         <div className="collection-info">
           <h1>{props.collection.name}</h1>
           <p>{props.collection.description}</p>
-          {/* Controls */}
           <div>
-            {readerControls}
-            {/* {ownerControls} */}
+            {props.collection.owner === user._id
+              ? ownerControls
+              : readerControls}
           </div>
           <br />
-          <Button onClick={props.fn} id={props.collection._id}>View Collection</Button>
+          <Button onClick={props.fn} id={props.collection._id}>
+            View Collection
+          </Button>
         </div>
       </StyledCollectionCard>
     </Jumbotron>
