@@ -206,7 +206,7 @@ const PostContent = ({ post }) => {
   const ownerControls = (
     <>
       <Delete onClick={deleting} />
-      <Edit />
+      <Edit onClick={() => router.push(`/posts/edit?id=${post._id}`)}/>
       <Badge
         className="bg-white text-secondary"
         variant="light"

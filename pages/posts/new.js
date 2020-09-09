@@ -51,6 +51,7 @@ const New = () => {
             exitEditor={changeView}
             post={post}
             setPost={setPost}
+            mode={"creating"}
           />
         </>
       )}

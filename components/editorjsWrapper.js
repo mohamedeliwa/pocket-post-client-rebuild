@@ -48,38 +48,71 @@ export default class extends Component {
 
   handleSaving(e) {
     e.preventDefault();
-    this.editor
-      .save()
-      .then((data) => {
-        const post = new FormData();
-        post.append("title", this.props.post.title);
-        post.append("coverImage", this.props.post.coverImage);
-        if (this.props.post.series) {
-          post.append("series", this.props.post.series);
-        }
-        post.append("excerpt", this.props.post.excerpt);
-        post.append("tags", JSON.stringify(this.props.post.tags));
-        post.append("content", JSON.stringify(data));
-        // const post = {
-        //   title: this.props.post.title,
-        //   coverImage: this.props.post.coverImage,
-        //   series: this.props.post.series,
-        //   excerpt: this.props.post.excerpt,
-        //   tags: this.props.post.tags,
-        //   content: data,
-        // };
-        fetch("http://localhost:5000/posts", {
-          method: "POST",
-          credentials: "include",
-          // body: JSON.stringify(post),
-          body: post,
-        })
-          .then((response) => response.json())
-          .then((post) => location.assign(`/posts/${post._id}`));
-      })
-      .catch((error) => {
-        console.log("Saving failed: ", error);
-      });
+    console.log(this.props.mode);
+    switch (this.props.mode) {
+      case "creating":
+        this.editor
+          .save()
+          .then((data) => {
+            const post = new FormData();
+            post.append("title", this.props.post.title);
+            post.append("coverImage", this.props.post.coverImage);
+            if (this.props.post.series) {
+              post.append("series", this.props.post.series);
+            }
+            post.append("excerpt", this.props.post.excerpt);
+            post.append("tags", JSON.stringify(this.props.post.tags));
+            post.append("content", JSON.stringify(data));
+            // const post = {
+            //   title: this.props.post.title,
+            //   coverImage: this.props.post.coverImage,
+            //   series: this.props.post.series,
+            //   excerpt: this.props.post.excerpt,
+            //   tags: this.props.post.tags,
+            //   content: data,
+            // };
+            fetch("http://localhost:5000/posts", {
+              method: "POST",
+              credentials: "include",
+              // body: JSON.stringify(post),
+              body: post,
+            })
+              .then((response) => response.json())
+              .then((post) => location.assign(`/posts/${post._id}`));
+          })
+          .catch((error) => {
+            console.log("Saving failed: ", error);
+          });
+        break;
+      case "editing":
+        this.editor
+          .save()
+          .then((data) => {
+            const post = {
+              title: this.props.post.title,
+              excerpt: this.props.post.excerpt,
+              tags: this.props.post.tags,
+              content: data,
+            };
+            if (this.props.post.series) {
+              post.series = this.props.post.series;
+            }
+            fetch(`http://localhost:5000/posts/${this.props.post._id}`, {
+              method: "PATCH",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(post),
+            })
+              .then((response) => response.json())
+              .then((post) => location.assign(`/posts/${post._id}`));
+          })
+          .catch((error) => {
+            console.log("Saving failed: ", error);
+          });
+        break;
+    }
   }
   exitEditor(e) {
     e.preventDefault();
