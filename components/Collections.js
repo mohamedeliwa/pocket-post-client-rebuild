@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import CollectionCard from "./CollectionCard";
 import CollectionContent from "./CollectionContent";
+import EmptySection from './EmptySection';
 
 const Collections = (props) => {
     const [state, setState] = useState("list");
@@ -19,7 +20,7 @@ const Collections = (props) => {
     })
   return state === "list" ?  (
     <div>
-        {collections}
+        {collections.length === 0 ? <EmptySection /> : collections}
     </div>
   ) : (
       <CollectionContent fn={handleChange} collection={focusedCollection}/>

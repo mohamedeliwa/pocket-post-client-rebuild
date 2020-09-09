@@ -14,8 +14,8 @@ import AccountSettings from "../../components/AccountSettings";
 const Settings = (props) => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
-  // const [key, setKey] = useState("profile");
-  const [key, setKey] = useState("account");
+  const [key, setKey] = useState("profile");
+  // const [key, setKey] = useState("account");
   const [avatar, setAvatar] = useState("");
   // const fetcher = (url) => fetch(url).then((r) => r.json());
   // const { data: user, error } = useSWR("/api/authorInfo", fetcher);

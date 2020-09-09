@@ -8,6 +8,7 @@ import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
 import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
+import EmptySection from "../../components/EmptySection";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -37,7 +38,7 @@ const Author = (props) => {
       >
         <Tab eventKey="allPosts" title="All Posts">
           <br />
-          {PostsCards}
+          {PostsCards.length == 0 ? <EmptySection /> : PostsCards}
         </Tab>
         <Tab eventKey="collections" title="Collections">
           <br />
