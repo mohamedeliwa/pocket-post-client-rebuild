@@ -10,14 +10,14 @@ import {
   Badge,
 } from "react-bootstrap";
 
-const NewPostOptions = (props) => {
+const EditingPostOptions = (props) => {
   const { user } = useContext(AuthContext);
   const [state, setState] = useState({
-    title: "",
-    excerpt: "",
-    coverImage: "",
-    series: "",
-    tags: [],
+    title: props.post.title,
+    excerpt: props.post.excerpt,
+    // coverImage: props.post.coverImage,
+    series: props.post.series,
+    tags: props.post.tags,
   });
 
   const fetcher = (url) => fetch(url).then((r) => r.json());
@@ -26,21 +26,27 @@ const NewPostOptions = (props) => {
     fetcher
   );
 
-  const collectionOptions = error ? (
+  const collectionOptions = /*!state.series ? null :*/ error ? (
     <option value="">Error Loading collections!</option>
   ) : !allCollections ? (
     <option value="">Loading...</option>
   ) : (
     allCollections.map((collection, index) => {
-      if (index === 0) {
+      if (!state.series && index == 0) {
         return (
           <>
             <option value="">None</option>
-            <option key={collection._id} value={collection._id}>{collection.name}</option>
+            <option key={collection._id} value={collection._id}>
+              {collection.name}
+            </option>
           </>
         );
       }
-      return <option key={collection._id} value={collection._id}>{collection.name}</option>;
+      return (
+        <option key={collection._id} value={collection._id}>
+          {collection.name}
+        </option>
+      );
     })
   );
 
@@ -63,7 +69,7 @@ const NewPostOptions = (props) => {
         setState({
           ...state,
           // coverImage: e.target.value,
-          coverImage:  e.target.files[0],
+          coverImage: e.target.files[0],
         });
         break;
       case "post-series":
@@ -133,6 +139,7 @@ const NewPostOptions = (props) => {
             id="title-post"
             placeholder="Enter post title..."
             onChange={handleChange}
+            value={state.title}
           />
         </div>
 
@@ -142,10 +149,11 @@ const NewPostOptions = (props) => {
             className="form-control"
             id="post-excerpt"
             onChange={handleChange}
+            value={state.excerpt}
           ></textarea>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="post-cover-image">Post Cover Image*</label>
           <input
             type="file"
@@ -153,10 +161,14 @@ const NewPostOptions = (props) => {
             id="post-cover-image"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <Form.Group controlId="post-series">
           <Form.Label>Select Collection</Form.Label>
-          <Form.Control as="select" defaultValue="None" onChange={handleChange}>
+          <Form.Control
+            as="select"
+            defaultValue={state.series}
+            onChange={handleChange}
+          >
             {collectionOptions}
           </Form.Control>
         </Form.Group>
@@ -183,4 +195,4 @@ const NewPostOptions = (props) => {
   );
 };
 
-export default NewPostOptions;
+export default EditingPostOptions;

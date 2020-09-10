@@ -28,7 +28,6 @@ const NewCollectionOptions = () => {
         break;
 
       case "collection-cover-image":
-        // console.log(e.target.files[0]);
         setState({
           ...state,
           coverImage: e.target.files[0],
@@ -54,7 +53,6 @@ const NewCollectionOptions = () => {
         const collection = await response.json();
         alert("Collection created successfully");
         router.reload();
-        console.log(collection);
       } else {
         throw new Error("collection creation failed!");
       }

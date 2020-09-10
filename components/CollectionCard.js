@@ -136,14 +136,4 @@ const CollectionCard = (props) => {
 };
 
 export default CollectionCard;
-// collection =   {
-//   likesCount: 0,
-//   _id: '5f4034298fbe501e540f3a80',
-//   name: '1sasdast series',
-//   description: 'Hello world',
-//   owner: '5f3bf5f54ceb7008a4684ce8',
-//   coverImage: 'QXNkYXM=',
-//   createdAt: '2020-08-21T20:52:57.501Z',
-//   updatedAt: '2020-08-21T20:52:57.501Z',
-//   __v: 0
-// }
+

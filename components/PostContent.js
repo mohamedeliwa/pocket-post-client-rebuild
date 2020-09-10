@@ -67,8 +67,6 @@ const Delete = styled(MdDelete)`
 const PostContent = ({ post }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useContext(AuthContext);
-  console.log(user);
-  // console.log(post);
   const [hearted, setHearted] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [reported, setReported] = useState(false);
@@ -206,7 +204,7 @@ const PostContent = ({ post }) => {
   const ownerControls = (
     <>
       <Delete onClick={deleting} />
-      <Edit />
+      <Edit onClick={() => router.push(`/posts/edit?id=${post._id}`)}/>
       <Badge
         className="bg-white text-secondary"
         variant="light"

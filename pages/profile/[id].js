@@ -8,6 +8,7 @@ import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
 import Spinner from "../../components/Spinner";
 import ErrorMsg from "../../components/ErrorMsg";
+import EmptySection from "../../components/EmptySection";
 
 const Author = (props) => {
   const [key, setKey] = useState("allPosts");
@@ -37,7 +38,7 @@ const Author = (props) => {
       >
         <Tab eventKey="allPosts" title="All Posts">
           <br />
-          {PostsCards}
+          {PostsCards.length == 0 ? <EmptySection /> : PostsCards}
         </Tab>
         <Tab eventKey="collections" title="Collections">
           <br />
@@ -60,7 +61,6 @@ export async function getServerSideProps(context) {
   // fechting user's post collections
   const res2 = await fetch(`http://localhost:5000/series?user_id=${id}&sortBy=createdAt:desc`);
   const collections = await res2.json();
-  console.log(await collections);
   // Pass data to the page via props
   return { props: { user, collections } };
 }

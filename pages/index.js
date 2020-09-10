@@ -7,6 +7,7 @@ import SidebarWidgets from "../components/SidebarWidgets";
 import styled from "styled-components";
 import useSWR from "swr";
 import ErrorMsg from "../components/ErrorMsg";
+import EmptySection from "../components/EmptySection";
 
 const StyledHome = styled(Container)``;
 
@@ -35,7 +36,7 @@ const Home = (props) => {
               _wherever you go!
             </small>
           </h1>
-          {PostsCards}
+          {PostsCards.length == 0 ? <EmptySection /> : PostsCards}
           <Pagination />
         </Col>
         <Col md={12} lg={4}>

@@ -6,7 +6,6 @@ import NewCollectionOptions from "./NewCollectionOptions";
 const NewPageOptions = (props) => {
   const [view, setView] = useState("");
   const handleChange = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "post") setView("post");
     if (e.target.value === "collection") setView("collection");
   };
