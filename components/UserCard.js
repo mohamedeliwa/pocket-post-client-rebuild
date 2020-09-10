@@ -109,14 +109,3 @@ const UserCard = ({ user }) => {
 };
 
 export default UserCard;
-// user = {
-//   _id: '5f3bf5f54ceb7008a4684ce8',
-//   firstName: 'random',
-//   lastName: 'random',
-//   followersCount: 0,
-//   likesCount: 0,
-//   postsCount: 2,
-//   seriesesCount: 0,
-//   otherSocial: [],
-//   createdAt: '2020-08-18T15:38:29.343Z'
-// }

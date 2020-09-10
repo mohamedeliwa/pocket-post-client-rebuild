@@ -7,7 +7,6 @@ const WithAuth = (Component) => {
 
   return (props) => {
     const { isAuthenticated } = useContext(AuthContext);
-    // console.log(isAuthenticated);
     return isAuthenticated === null ? null : isAuthenticated ? (
       <Component {...props} />
     ) : (

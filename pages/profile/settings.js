@@ -4,9 +4,9 @@ import { Container, Tabs, Tab, Image } from "react-bootstrap";
 import UserCard from "../../components/UserCard";
 import SettingForm from "../../components/SettingForm";
 import WithAuth from "../../components/WithAuth";
-import useSWR from "swr";
-import Spinner from "../../components/Spinner";
-import ErrorMsg from "../../components/ErrorMsg";
+// import useSWR from "swr";
+// import Spinner from "../../components/Spinner";
+// import ErrorMsg from "../../components/ErrorMsg";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import AccountSettings from "../../components/AccountSettings";
@@ -17,11 +17,6 @@ const Settings = (props) => {
   const [key, setKey] = useState("profile");
   // const [key, setKey] = useState("account");
   const [avatar, setAvatar] = useState("");
-  // const fetcher = (url) => fetch(url).then((r) => r.json());
-  // const { data: user, error } = useSWR("/api/authorInfo", fetcher);
-  // if (error)
-  //   return <ErrorMsg msg="Failed to load! , please try again later." />;
-  // if (!user) return <Spinner />;
   const publicInfo = [
     "firstName",
     "lastName",

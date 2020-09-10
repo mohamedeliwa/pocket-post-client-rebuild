@@ -67,8 +67,6 @@ const Delete = styled(MdDelete)`
 const PostContent = ({ post }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useContext(AuthContext);
-  console.log(user);
-  // console.log(post);
   const [hearted, setHearted] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [reported, setReported] = useState(false);

@@ -23,9 +23,7 @@ const Edit = () => {
   const [post, setPost] = useState(data);
   useEffect(() => {
     setPost(data);
-    console.log(data);
   }, [data]);
-  console.log("New: ", post);
   const changeView = (value) => {
     if (value === "options" || value === "editor") {
       setView(value);

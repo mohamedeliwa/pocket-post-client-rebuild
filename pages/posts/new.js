@@ -16,7 +16,6 @@ const New = () => {
     tags: [],
     content: "hello world"
   });
-  console.log("New: ", post);
   const changeView = (value) => {
     if (value === "options" || value === "editor") {
       setView(value);

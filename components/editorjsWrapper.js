@@ -48,7 +48,6 @@ export default class extends Component {
 
   handleSaving(e) {
     e.preventDefault();
-    console.log(this.props.mode);
     switch (this.props.mode) {
       case "creating":
         this.editor

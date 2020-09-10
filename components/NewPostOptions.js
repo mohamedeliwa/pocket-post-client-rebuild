@@ -85,7 +85,6 @@ const NewPostOptions = (props) => {
       tags,
     });
     tagInput.value = "";
-    console.log(state);
   };
 
   const removeTag = (e) => {

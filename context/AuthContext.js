@@ -89,7 +89,6 @@ const AuthContextProvider = (props) => {
           email: userInfo.email,
         }),
       });
-      console.log(response);
       // checking if the user is successfully registered
       if (response.status === 201) {
         // user object returned by the server
