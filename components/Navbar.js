@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import useSWR from "swr";
 
 const StyledNav = styled(Nav)`
   // background-color: #eee;
@@ -40,7 +41,15 @@ const StyledToggle = styled(Dropdown.Toggle)`
 
 export default (props) => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
+  const fetcher = (url) => fetch(url).then((r) => r);
+  const { data, error } = useSWR(() => isAuthenticated ? `http://localhost:5000/users/${user._id}/avatar` : null, fetcher);
 
+  const avatar =  (error || !data || data.status !== 200) ? (
+    <img  src={"/profile.png"} className="rounded" style={{ width: "30px" }} />
+  ) : (
+    <img  src={`http://localhost:5000/users/${user._id}/avatar`} className="rounded" style={{ width: "30px" }} />
+  )
+  
   /**
    * if the user not authenticated
    **/
@@ -114,7 +123,7 @@ export default (props) => {
               <img src="/profile.png"  style={{width: "30px"}} />
             </Dropdown.Toggle> */}
           <StyledToggle /*className="border-0 rounded bg-white"*/>
-            <img  src={`http://localhost:5000/users/${user._id}/avatar`}/*src={user.avatar}*/ className="rounded" style={{ width: "30px" }} />
+            {avatar}
           </StyledToggle>
 
           <Dropdown.Menu>

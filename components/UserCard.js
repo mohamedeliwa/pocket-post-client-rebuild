@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import { TiFlag } from "react-icons/ti";
 import styled from "styled-components";
+import useSWR from "swr";
 
 const StyledUserCard = styled(Container)`
   // /background-color: lightyellow;
@@ -21,6 +22,16 @@ const Report = styled.span`
 const UserCard = ({ user }) => {
   const router = useRouter();
   const { user: currentUser, isAuthenticated } = useContext(AuthContext);
+
+  const fetcher = (url) => fetch(url).then((r) => r);
+  const { data, error } = useSWR(() => isAuthenticated ? `http://localhost:5000/users/${user._id}/avatar` : null, fetcher);
+
+  const avatar =  (error || !data || data.status !== 200) ? (
+    <Image src={"/profile.png"} style={{width: "250px", height: "250px"}} rounded />
+  ) : (
+    <Image src={user.avatar} rounded />
+  )
+
   const [reported, setReported] = useState(false);
   useEffect(() => {
     setReported(
@@ -89,7 +100,8 @@ const UserCard = ({ user }) => {
         </div>
 
         <div className="user-img">
-          <Image src={user.avatar} rounded />
+          {/* <Image src={user.avatar} rounded /> */}
+          {avatar}
         </div>
       </StyledUserCard>
     </Jumbotron>
