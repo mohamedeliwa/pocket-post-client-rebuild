@@ -44,12 +44,16 @@ const Edit = () => {
         <link rel="icon" href="/favicon.ico" />
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+        {/* <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script> */}
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
       </Head>
       {view === "options" ? (
         <EditingPostOptions

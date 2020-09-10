@@ -25,21 +25,28 @@ export default class extends Component {
       data: this.props.data,
       tools: {
         header: Header,
-        image: {
-          // Docs : https://github.com/editor-js/image
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: "http://localhost:8008/uploadFile", // Your backend file uploader endpoint
-              byUrl: "http://localhost:8008/fetchUrl", // Your endpoint that provides uploading by Url
-            },
-          },
-        },
+        image: SimpleImage,
+        // image: {
+        //   // Docs : https://github.com/editor-js/image
+        //   class: ImageTool,
+        //   config: {
+        //     endpoints: {
+        //       byFile: "http://localhost:8008/uploadFile", // Your backend file uploader endpoint
+        //       byUrl: "http://localhost:8008/fetchUrl", // Your endpoint that provides uploading by Url
+        //     },
+        //   },
+        // },
         list: List,
         checklist: Checklist,
+        code: CodeTool,
         quote: Quote,
         delimiter: Delimiter,
         Marker: Marker,
+        inlineCode: {
+          class: InlineCode,
+          shortcut: "CMD+SHIFT+M",
+        },
+        underline: Underline,
       }, // end of tools
       onReady: this.props.onReady,
       onChange: this.props.onChange,
@@ -123,12 +130,16 @@ export default class extends Component {
         <Head>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-          <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+          {/* <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script> */}
+          <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
         </Head>
         <div id="editorjs"></div>
 
