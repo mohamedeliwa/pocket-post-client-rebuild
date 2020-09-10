@@ -7,6 +7,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Spinner from "../components/Spinner";
 import ErrorMsg from "../components/ErrorMsg";
+import EmptySection from "./EmptySection";
 
 const PostName = styled.span`
   cursor: pointer;
@@ -24,26 +25,26 @@ const Controls = styled.span`
 
 const CollectionContent = (props) => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
-  const { data: posts, error } = useSWR(
+  const { data: collection, error } = useSWR(
     `http://localhost:5000/series/${props.collection.id}`,
     fetcher
   );
   const collectionPosts = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
-  ) : !posts ? (
+  ) : !collection ? (
     <Spinner />
   ) : (
-    posts.map((post) => {
+    collection.posts.map((post) => {
       return (
-        <ListGroup.Item className="d-flex justify-content-around">
+        <ListGroup.Item className="d-flex justify-content-around" key={post._id}>
           <Link href="/posts/[id]" as={`/posts/${post._id}`}>
             <PostName>{post.title}</PostName>
           </Link>
-          <Controls>
+          {/* <Controls>
             <MdKeyboardArrowDown style={{ color: "#007bff" }} />
             <MdKeyboardArrowUp style={{ color: "#007bff" }} />
             <TiDeleteOutline style={{ color: "#d93025" }} />
-          </Controls>
+          </Controls> */}
         </ListGroup.Item>
       );
     })
@@ -56,7 +57,7 @@ const CollectionContent = (props) => {
       <br />
       <br />
       <ListGroup variant="flush">
-        {collectionPosts}
+        {collectionPosts.length === 0 ? <EmptySection /> : collectionPosts }
         <hr />
       </ListGroup>
     </Container>
