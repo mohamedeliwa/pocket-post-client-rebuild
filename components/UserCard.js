@@ -24,13 +24,22 @@ const UserCard = ({ user }) => {
   const { user: currentUser, isAuthenticated } = useContext(AuthContext);
 
   const fetcher = (url) => fetch(url).then((r) => r);
-  const { data, error } = useSWR(() => isAuthenticated ? `http://localhost:5000/users/${user._id}/avatar` : null, fetcher);
+  const { data, error } = useSWR(
+    () =>
+      isAuthenticated ? `http://localhost:5000/users/${user._id}/avatar` : null,
+    fetcher
+  );
 
-  const avatar =  (error || !data || data.status !== 200) ? (
-    <Image src={"/profile.png"} style={{width: "250px", height: "250px"}} rounded />
-  ) : (
-    <Image src={user.avatar} rounded />
-  )
+  const avatar =
+    error || !data || data.status !== 200 ? (
+      <Image
+        src={"/profile.png"}
+        style={{ width: "250px", height: "250px" }}
+        rounded
+      />
+    ) : (
+      <Image src={user.avatar} rounded />
+    );
 
   const [reported, setReported] = useState(false);
   useEffect(() => {
@@ -60,12 +69,16 @@ const UserCard = ({ user }) => {
         if (response.status === 200) {
           setReported(!reported);
           router.reload();
+        } else {
+          const responseJSON = await response.json();
+          throw new Error(responseJSON.error);
         }
       } else {
         alert("You should login first");
       }
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
     }
   };
 
