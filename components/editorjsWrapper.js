@@ -25,7 +25,9 @@ export default class extends Component {
       data: this.props.data,
       tools: {
         header: Header,
-        image: SimpleImage,
+        // the renderer used can't display images by url
+        // so commented out this tool till the renderer problem is fixed
+        // image: SimpleImage,
         // image: {
         //   // Docs : https://github.com/editor-js/image
         //   class: ImageTool,
@@ -38,7 +40,9 @@ export default class extends Component {
         // },
         list: List,
         checklist: Checklist,
-        code: CodeTool,
+        // the renderer used can't display images by url
+        // so commented out this tool till the renderer problem is fixed
+        // code: CodeTool,
         quote: Quote,
         delimiter: Delimiter,
         Marker: Marker,
