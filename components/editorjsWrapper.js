@@ -20,7 +20,7 @@ export default class extends Component {
        */
       holder: "editorjs",
       autofocus: true,
-      initialBlock: "header",
+      // initialBlock: "header",
       // placeholder?: string|false,
       data: this.props.data,
       tools: {
