@@ -10,10 +10,13 @@ import WithAuth from "../../components/WithAuth";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import AccountSettings from "../../components/AccountSettings";
+import useSWR from "swr";
 
 const Settings = (props) => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
+  const fetcher = (url) => fetch(url).then((r) => r);
+  const { data, error } = useSWR(`http://localhost:5000/users/${user._id}/avatar`, fetcher);
   const [key, setKey] = useState("profile");
   // const [key, setKey] = useState("account");
   const [avatar, setAvatar] = useState("");
@@ -98,7 +101,14 @@ const Settings = (props) => {
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="form-group">
                   <label htmlFor="avatar">
-                    <Image src={user.avatar} rounded />
+                    {/* <Image src={user.avatar} rounded /> */}
+                    {
+                      (error || !data || data.status !== 200) ? (
+                        <Image src={"/profile.png"} rounded style={{ width: "100px" }}/>
+                      ) : (
+                        <Image src={user.avatar} rounded />
+                      )
+                    }
                   </label>
                   <input
                     type="file"
