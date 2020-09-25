@@ -13,7 +13,10 @@ const StyledHome = styled(Container)``;
 
 const Home = (props) => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
-  const { data: allPosts, error } = useSWR("http://localhost:5000/posts?limit=4&skip=0&sortBy=createdAt:desc", fetcher);
+  const { data: allPosts, error } = useSWR(
+    "http://localhost:5000/posts?limit=4&skip=0&sortBy=createdAt:desc",
+    fetcher
+  );
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
