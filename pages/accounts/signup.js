@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Form, Button } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
+import Head from "next/head";
 
 const SignUp = styled(Container)`
   //background-color: #eee;
@@ -90,6 +91,10 @@ const signup = () => {
 
   return (
     <SignUp>
+      <Head>
+        <title>Pocket-Post</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <StyledForm className="bg-light" onSubmit={handleSubmit}>
         <FormHeader>Pocket-Post</FormHeader>
 

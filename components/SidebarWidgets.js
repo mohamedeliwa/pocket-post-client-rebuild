@@ -23,7 +23,7 @@ const SidebarWidgets = (props) => {
     window.open(
       `https://www.google.com/search?q=${encodeURIComponent(
         searchTerm
-      )}&sitesearch=www.LearnCpp.com`,
+      )}&sitesearch=pocketpost`,
       "_blank" // <- This is what makes it open in a new window.
     );
   };
