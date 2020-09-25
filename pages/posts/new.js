@@ -28,7 +28,7 @@ const New = () => {
       style={{ backgroundColor: "#eef5fa" }}
     >
       <Head>
-        <title>Pocket-Posta</title>
+        <title>Pocket-Post</title>
         <link rel="icon" href="/favicon.ico" />
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>

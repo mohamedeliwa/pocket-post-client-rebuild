@@ -6,7 +6,7 @@ const EmptySection = () => {
       <Alert variant="success">
         <Alert.Heading>Hey, nice to see you</Alert.Heading>
         <p>
-          Unfortionately this section is Empty for now, you can help contributing to Pocket-Post
+          Unfortionately this section is Empty for now, you can help by contributing to Pocket-Post
         </p>
         <hr />
         <p className="mb-0">

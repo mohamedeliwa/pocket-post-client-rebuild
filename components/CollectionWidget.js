@@ -14,7 +14,7 @@ const CollectionWidget = (props) => {
   );
 
   const collectionFetcher = (url) => fetch(url).then((r) => r.json());
-  const { data: collectionPosts, error: postsError } = useSWR(
+  const { data: collection, error: collectionError } = useSWR(
     () => post.series ? `http://localhost:5000/series/${post.series}` : null,
     // When passing a function, SWR will use the return
     // value as `key`. If the function throws or returns
@@ -24,12 +24,12 @@ const CollectionWidget = (props) => {
     collectionFetcher
   );
   
-  const posts = postsError ? (
+  const posts = collectionError ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
-  ) : !collectionPosts ? (
+  ) : !collection ? (
     <Spinner />
   ) : (
-    collectionPosts.map((post) => {
+    collection.posts.map((post) => {
       return (
         <Link href="/posts/[id]" as={`/posts/${post._id}`} key={post._id}>
           <a
@@ -44,9 +44,9 @@ const CollectionWidget = (props) => {
     })
   );
 
-  return collectionPosts ? (
+  return collection ? (
     <Card className=" my-4">
-      <Card.Header>All collection's posts</Card.Header>
+      <Card.Header>{collection.name} Collection</Card.Header>
       <Card.Body className="p-0">
         <div className="list-group-flush">{posts}</div>
       </Card.Body>

@@ -72,12 +72,16 @@ const CollectionCard = (props) => {
         if (response.status === 200) {
           setReported(!reported);
           router.reload();
+        } else {
+          const responseJSON = await response.json();
+          throw new Error(responseJSON.error);
         }
       } else {
         alert("You should login first");
       }
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
     }
   };
 
@@ -136,4 +140,3 @@ const CollectionCard = (props) => {
 };
 
 export default CollectionCard;
-

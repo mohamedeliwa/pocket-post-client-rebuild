@@ -95,12 +95,16 @@ const PostContent = ({ post }) => {
         if (response.status === 200) {
           setHearted(!hearted);
           router.reload();
+        } else {
+          const responseJSON = await response.json();
+          throw new Error(responseJSON.error);
         }
       } else {
         alert("You should login first");
       }
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
     }
   };
 
@@ -145,12 +149,16 @@ const PostContent = ({ post }) => {
         if (response.status === 200) {
           setReported(!reported);
           router.reload();
+        } else {
+          const responseJSON = await response.json();
+          throw new Error(responseJSON.error);
         }
       } else {
         alert("You should login first");
       }
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
     }
   };
 
@@ -162,10 +170,10 @@ const PostContent = ({ post }) => {
         method: "DELETE",
         credentials: "include",
       });
-      if(response.status === 200){
+      if (response.status === 200) {
         alert("post deleted successfully!");
         router.push("/");
-      }else{
+      } else {
         alert("deleting post failed, try again!");
       }
     } catch (error) {
@@ -204,7 +212,7 @@ const PostContent = ({ post }) => {
   const ownerControls = (
     <>
       <Delete onClick={deleting} />
-      <Edit onClick={() => router.push(`/posts/edit?id=${post._id}`)}/>
+      <Edit onClick={() => router.push(`/posts/edit?id=${post._id}`)} />
       <Badge
         className="bg-white text-secondary"
         variant="light"
