@@ -22,7 +22,7 @@ const NewPostOptions = (props) => {
 
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: allCollections, error } = useSWR(
-    `http://localhost:5000/series?user_id=${user._id}`,
+    `https://pocket-post-server.glitch.me/series?user_id=${user._id}`,
     fetcher
   );
 

@@ -74,7 +74,7 @@ const resetPassword = () => {
 
   const handleResetRquestSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/password/reset", {
+    const response = await fetch("https://pocket-post-server.glitch.me/password/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const resetPassword = () => {
   const handleNewPasswordSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:5000/password/reset/${router.query.token}`,
+      `https://pocket-post-server.glitch.me/password/reset/${router.query.token}`,
       {
         method: "POST",
         headers: {

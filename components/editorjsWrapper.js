@@ -81,7 +81,7 @@ export default class extends Component {
             //   tags: this.props.post.tags,
             //   content: data,
             // };
-            fetch("http://localhost:5000/posts", {
+            fetch("https://pocket-post-server.glitch.me/posts", {
               method: "POST",
               credentials: "include",
               // body: JSON.stringify(post),
@@ -107,7 +107,7 @@ export default class extends Component {
             if (this.props.post.series) {
               post.series = this.props.post.series;
             }
-            fetch(`http://localhost:5000/posts/${this.props.post._id}`, {
+            fetch(`https://pocket-post-server.glitch.me/posts/${this.props.post._id}`, {
               method: "PATCH",
               credentials: "include",
               headers: {

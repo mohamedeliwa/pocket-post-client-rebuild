@@ -9,13 +9,13 @@ const CollectionWidget = (props) => {
   const router = useRouter();
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: post, error: postError } = useSWR(
-    `http://localhost:5000/posts/${props.postId}/public`,
+    `https://pocket-post-server.glitch.me/posts/${props.postId}/public`,
     fetcher
   );
 
   const collectionFetcher = (url) => fetch(url).then((r) => r.json());
   const { data: collection, error: collectionError } = useSWR(
-    () => post.series ? `http://localhost:5000/series/${post.series}` : null,
+    () => post.series ? `https://pocket-post-server.glitch.me/series/${post.series}` : null,
     // When passing a function, SWR will use the return
     // value as `key`. If the function throws or returns
     // falsy, SWR will know that some dependencies are not

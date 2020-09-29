@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   // Fetch data from external API
   // getting post's id from routing params
   const id = context.params.id;
-  const res = await fetch(`http://localhost:5000/posts/${id}/public`);
+  const res = await fetch(`https://pocket-post-server.glitch.me/posts/${id}/public`);
   // temporary fetching test post info till end-point for post feching updated on the server
   // const res2 = await fetch(`http://localhost:3000/api/post`);
   const post = await res.json();
@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
     ...post,
     owner: {
       ...post.owner,
-      avatar: `http://localhost:5000/users/${post.owner._id}/avatar`
+      avatar: `https://pocket-post-server.glitch.me/users/${post.owner._id}/avatar`
     },
     // coverImage: post2.coverImage,
     coverImage: post.coverImage,

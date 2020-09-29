@@ -14,7 +14,7 @@ const Author = (props) => {
   const [key, setKey] = useState("allPosts");
 
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data: allPosts, error } = useSWR(`http://localhost:5000/posts?user_id=${props.user._id}&limit=4&skip=0&sortBy=createdAt:desc`, fetcher);
+  const { data: allPosts, error } = useSWR(`https://pocket-post-server.glitch.me/posts?user_id=${props.user._id}&limit=4&skip=0&sortBy=createdAt:desc`, fetcher);
   const PostsCards = error ? (
     <ErrorMsg msg="Failed to load! , please try again later." />
   ) : !allPosts ? (
@@ -55,11 +55,11 @@ export async function getServerSideProps(context) {
   // getting user's id from routing params
   const id = context.params.id;
   // fetching user's public information
-  const res = await fetch(`http://localhost:5000/users/profile/${id}`);
+  const res = await fetch(`https://pocket-post-server.glitch.me/users/profile/${id}`);
   const user = await res.json();
-  user.avatar = `http://localhost:5000/users/${id}/avatar`
+  user.avatar = `https://pocket-post-server.glitch.me/users/${id}/avatar`
   // fechting user's post collections
-  const res2 = await fetch(`http://localhost:5000/series?user_id=${id}&sortBy=createdAt:desc`);
+  const res2 = await fetch(`https://pocket-post-server.glitch.me/series?user_id=${id}&sortBy=createdAt:desc`);
   const collections = await res2.json();
   // Pass data to the page via props
   return { props: { user, collections } };
