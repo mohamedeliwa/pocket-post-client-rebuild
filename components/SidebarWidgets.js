@@ -23,7 +23,7 @@ const SidebarWidgets = (props) => {
     window.open(
       `https://www.google.com/search?q=${encodeURIComponent(
         searchTerm
-      )}&sitesearch=pocketpost`,
+      )}&sitesearch=https://pocket-post-client-rebuild-git-deploying-changes.mohamedeliwa.vercel.app`,
       "_blank" // <- This is what makes it open in a new window.
     );
   };
