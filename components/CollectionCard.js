@@ -36,7 +36,7 @@ const CollectionCard = (props) => {
   const deleting = async (e) => {
     e.preventDefault();
     try {
-      const url = `https://pocket-post-server.glitch.me/series/${props.collection._id}`;
+      const url = `https://pocket-post-server.herokuapp.com/series/${props.collection._id}`;
       const response = await fetch(url, {
         method: "DELETE",
         credentials: "include",
@@ -56,7 +56,7 @@ const CollectionCard = (props) => {
     e.preventDefault();
     try {
       if (isAuthenticated) {
-        const url = `https://pocket-post-server.glitch.me/report/series/`;
+        const url = `https://pocket-post-server.herokuapp.com/report/series/`;
         const response = await fetch(url, {
           method: "POST",
           credentials: "include",

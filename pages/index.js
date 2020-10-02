@@ -14,7 +14,7 @@ const StyledHome = styled(Container)``;
 const Home = (props) => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: allPosts, error } = useSWR(
-    "https://pocket-post-server.glitch.me/posts?limit=4&skip=0&sortBy=createdAt:desc",
+    "https://pocket-post-server.herokuapp.com/posts?limit=4&skip=0&sortBy=createdAt:desc",
     fetcher
   );
   const PostsCards = error ? (

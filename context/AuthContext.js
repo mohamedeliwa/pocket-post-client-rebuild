@@ -45,12 +45,14 @@ const AuthContextProvider = (props) => {
     (async () => {
       try {
         // end-point for reading profile info
-        const url = "https://pocket-post-server.glitch.me/users/profile";
+        const url = "https://pocket-post-server.herokuapp.com/users/profile";
+        // const url = "https://pocket-post-server.glitch.me/users/profile";
         const response = await fetch(url, { credentials: "include" });
         if (response.status === 200) {
           const user = await response.json();
           // setting user avat url
-          user.avatar = `https://pocket-post-server.glitch.me/users/${user._id}/avatar`;
+          user.avatar = `https://pocket-post-server.herokuapp.com/users/${user._id}/avatar`;
+          // user.avatar = `https://pocket-post-server.glitch.me/users/${user._id}/avatar`;
           setState({
             isAuthenticated: true,
             user,
@@ -74,7 +76,8 @@ const AuthContextProvider = (props) => {
   const signup = async (userInfo) => {
     try {
       // end-point for registering a new user
-      const url = "https://pocket-post-server.glitch.me/users";
+      const url = "https://pocket-post-server.herokuapp.com/users";
+      // const url = "https://pocket-post-server.glitch.me/users";
       // sending request with the new user info
       const response = await fetch(url, {
         method: "POST",
@@ -110,7 +113,8 @@ const AuthContextProvider = (props) => {
   const login = async (credentials) => {
     try {
       // end-point for logging in
-      const url = "https://pocket-post-server.glitch.me/users/login";
+      const url = "https://pocket-post-server.herokuapp.com/users/login";
+      // const url = "https://pocket-post-server.glitch.me/users/login";
       const response = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -142,7 +146,7 @@ const AuthContextProvider = (props) => {
   const logout = async () => {
     try {
       // end-point for logining out
-      const url = "https://pocket-post-server.glitch.me/users/logout";
+      const url = "https://pocket-post-server.herokuapp.com/users/logout";
       const response = await fetch(url, {
         method: "POST",
         credentials: "include",

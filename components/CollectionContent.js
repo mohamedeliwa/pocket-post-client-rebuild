@@ -26,7 +26,7 @@ const Controls = styled.span`
 const CollectionContent = (props) => {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data: collection, error } = useSWR(
-    `https://pocket-post-server.glitch.me/series/${props.collection.id}`,
+    `https://pocket-post-server.herokuapp.com/series/${props.collection.id}`,
     fetcher
   );
   const collectionPosts = error ? (

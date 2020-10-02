@@ -26,7 +26,7 @@ const UserCard = ({ user }) => {
   const fetcher = (url) => fetch(url).then((r) => r);
   const { data, error } = useSWR(
     () =>
-      isAuthenticated ? `https://pocket-post-server.glitch.me/users/${user._id}/avatar` : null,
+      isAuthenticated ? `https://pocket-post-server.herokuapp.com/users/${user._id}/avatar` : null,
     fetcher
   );
 
@@ -53,7 +53,7 @@ const UserCard = ({ user }) => {
     e.preventDefault();
     try {
       if (isAuthenticated) {
-        const url = `https://pocket-post-server.glitch.me/report/user/`;
+        const url = `https://pocket-post-server.herokuapp.com/report/user/`;
         const response = await fetch(url, {
           method: "POST",
           credentials: "include",
