@@ -42,12 +42,12 @@ const StyledToggle = styled(Dropdown.Toggle)`
 export default (props) => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
   const fetcher = (url) => fetch(url).then((r) => r);
-  const { data, error } = useSWR(() => isAuthenticated ? `http://localhost:5000/users/${user._id}/avatar` : null, fetcher);
+  const { data, error } = useSWR(() => isAuthenticated ? `https://pocket-post-server.herokuapp.com/users/${user._id}/avatar` : null, fetcher);
 
   const avatar =  (error || !data || data.status !== 200) ? (
     <img  src={"/profile.png"} className="rounded" style={{ width: "30px" }} />
   ) : (
-    <img  src={`http://localhost:5000/users/${user._id}/avatar`} className="rounded" style={{ width: "30px" }} />
+    <img  src={`https://pocket-post-server.herokuapp.com/users/${user._id}/avatar`} className="rounded" style={{ width: "30px" }} />
   )
   
   /**

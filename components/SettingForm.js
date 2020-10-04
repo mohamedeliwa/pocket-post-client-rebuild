@@ -49,7 +49,7 @@ const SettingForm = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/users/profile";
+    const url = "https://pocket-post-server.herokuapp.com/users/profile";
     try {
       let user;
       switch (props.label) {
@@ -79,21 +79,21 @@ const SettingForm = (props) => {
           break;
         case "Email Address":
           user = await props.updater(
-            "http://localhost:5000/email/update",
+            "https://pocket-post-server.herokuapp.com/email/update",
             "newEmail",
             state.value
           );
           break;
         case "Paybal Email":
           user = await props.updater(
-            "http://localhost:5000/paybal/update",
+            "https://pocket-post-server.herokuapp.com/paybal/update",
             "paybalEmail",
             state.value
           );
           break;
         case "Password":
           user = await props.updater(
-            "http://localhost:5000/password/update",
+            "https://pocket-post-server.herokuapp.com/password/update",
             "newPassword",
             state.value
           );

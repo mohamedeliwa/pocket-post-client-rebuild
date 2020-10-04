@@ -38,7 +38,7 @@ const NewCollectionOptions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5000/series";
+      const url = "https://pocket-post-server.herokuapp.com/series";
       const formData = new FormData();
       formData.append("name", state.name);
       formData.append("coverImage", state.coverImage);

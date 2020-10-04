@@ -17,7 +17,7 @@ const Edit = () => {
       credentials: "include",
     }).then((r) => r.json());
   const { data, error } = useSWR(
-    `http://localhost:5000/posts/${router.query.id}`,
+    `https://pocket-post-server.herokuapp.com/posts/${router.query.id}`,
     fetcher
   );
   const [post, setPost] = useState(data);

@@ -87,7 +87,7 @@ const PostContent = ({ post }) => {
     e.preventDefault();
     try {
       if (isAuthenticated) {
-        const url = `http://localhost:5000/like/post/${post._id}`;
+        const url = `https://pocket-post-server.herokuapp.com/like/post/${post._id}`;
         const response = await fetch(url, {
           method: "POST",
           credentials: "include",
@@ -112,7 +112,7 @@ const PostContent = ({ post }) => {
     e.preventDefault();
     try {
       if (isAuthenticated) {
-        const url = `http://localhost:5000/bookmark/post/${post._id}`;
+        const url = `https://pocket-post-server.herokuapp.com/bookmark/post/${post._id}`;
         const response = await fetch(url, {
           method: "POST",
           credentials: "include",
@@ -133,7 +133,7 @@ const PostContent = ({ post }) => {
     e.preventDefault();
     try {
       if (isAuthenticated) {
-        const url = `http://localhost:5000/report/post/`;
+        const url = `https://pocket-post-server.herokuapp.com/report/post/`;
         const response = await fetch(url, {
           method: "POST",
           credentials: "include",
@@ -165,7 +165,7 @@ const PostContent = ({ post }) => {
   const deleting = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:5000/posts/${post._id}`;
+      const url = `https://pocket-post-server.herokuapp.com/posts/${post._id}`;
       const response = await fetch(url, {
         method: "DELETE",
         credentials: "include",

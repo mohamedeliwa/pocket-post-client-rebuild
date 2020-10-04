@@ -16,7 +16,7 @@ const Settings = (props) => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
   const fetcher = (url) => fetch(url).then((r) => r);
-  const { data, error } = useSWR(`http://localhost:5000/users/${user._id}/avatar`, fetcher);
+  const { data, error } = useSWR(`https://pocket-post-server.herokuapp.com/users/${user._id}/avatar`, fetcher);
   const [key, setKey] = useState("profile");
   // const [key, setKey] = useState("account");
   const [avatar, setAvatar] = useState("");
@@ -63,7 +63,7 @@ const Settings = (props) => {
       const formData = new FormData();
       formData.append("avatar", avatar);
       const response = await fetch(
-        "http://localhost:5000/users/profile/avatar",
+        "https://pocket-post-server.herokuapp.com/users/profile/avatar",
         {
           method: "POST",
           credentials: "include",
